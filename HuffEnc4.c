@@ -25,6 +25,7 @@ void insert(node ** tree, char binCode[], char letter){
      * binCode[] is the associated binary code
      * letter is the associated character/letter
      * dir is whether it is left or right of its parent node */
+    printf("Inserting Node!");
     node *temp = NULL; // temp node pointer
     char firstChar = binCode[0]; // Looks to find direction in relation to parent '0'->left, '1'->right
     char* nextBinCode = charSubStr(binCode); // binCode to be passed
@@ -73,15 +74,20 @@ int main(){
     root = NULL; // it is the root so it has no parent (NULL parent)
     int N; // obtain the number of char:binCode
     scanf("%d", &N);
-    char* charCode; // create space for the char:binCode lines
+    char charCode[256]; // create space for the char:binCode lines
     char c; // get rid of the garbage at the end of lines and stuff...
     for (int i = 0; i < N; i++){ // Obtain the char:binCode lines N times
+        printf("getting rid of newline char\n");
         c = getchar(); // get the '\n' of the previous line
+        printf("getting the character\n");
         c = getchar(); // get the actual character of the char:binCode line
+        printf("scanning the charCode\n");
         scanf("%s", charCode); // get the binCode of the line
+        printf("initiating node insertion\n");
         insert(&root, charCode, c); // insert the leaf into the tree
+        printf("finished the insert\n");
     }
-    char* msg; // create space for the encoded message
+    char msg[256]; // create space for the encoded message
     scanf("%s", msg); // get the encoded message
     traverse(&root, &root, msg); // traverse the tree with the encoded message
     deltree(root); // free up space used

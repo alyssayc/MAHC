@@ -88,6 +88,7 @@ int main(){
         insert(&root, charCode, c); // insert the leaf into the tree
         printf("finished the insert\n");
     }
+    printf("lets get the encoded message!");
     char msg[256]; // create space for the encoded message
     scanf("%s", msg); // get the encoded message
     traverse(&root, &root, msg); // traverse the tree with the encoded message

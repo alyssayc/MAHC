@@ -79,11 +79,11 @@ void traverse(node ** tree, node ** root, char encMsg[]){ // go through the tree
         if ((*tree)->leaf == 1){ // if the node is a leaf, print its value then continue with remaining code
             printf("%c", (*tree)->data); // prints its character/letter
             char* prevEncMsg = combSubStr(firstChar, nextEncMsg);
-            traverse(&(*root), &(*root), prevEncMsg); // traverse starting from the root with the encMsg
+            traverse(root, root, prevEncMsg); // traverse starting from the root with the encMsg
         } else if (firstChar == '0'){ // if the node is not a leaf and the first char is 0, go to left child
-            traverse(&(*tree)->left, &(*root), nextEncMsg); // traverse to left child with remaining EncMsg
+            traverse(&(*tree)->left, root, nextEncMsg); // traverse to left child with remaining EncMsg
         } else if (firstChar == '1'){ // if the node is not a leaf and the first char is 1, go to right child
-            traverse(&(*tree)->right, &(*root), nextEncMsg); // traverse to right child with remaining EncMsg
+            traverse(&(*tree)->right, root, nextEncMsg); // traverse to right child with remaining EncMsg
         }
     } else {
         printf("%c", (*tree)->data);
@@ -95,7 +95,7 @@ int main(){
     root = NULL; // it is the root so it has no parent (NULL parent)
     int N; // obtain the number of char:binCode
     scanf("%d", &N);
-    char charCode[256]; // create space for the char:binCode lines
+    char charCode[100000]; // create space for the char:binCode lines
     char c; // get rid of the garbage at the end of lines and stuff...
     for (int i = 0; i < N; i++){ // Obtain the char:binCode lines N times
         c = getchar(); // get the '\n' of the previous line
@@ -103,7 +103,7 @@ int main(){
         scanf("%s", charCode); // get the binCode of the line
         insert(&root, charCode, c); // insert the leaf into the tree
     }
-    char msg[256]; // create space for the encoded message
+    char msg[100000]; // create space for the encoded message
     scanf("%s", msg); // get the encoded message
     traverse(&root, &root, msg); // traverse the tree with the encoded message
     deltree(root); // free up space used

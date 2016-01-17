@@ -8,12 +8,22 @@ char* charSubStr(char* str){ //This should return the string without the first c
     for (int i = 0; i < length - 1; i++){
         tmp[i] = str[i + 1];
     }
+    
     tmp[length - 1] = '\0';
     return tmp;
 }
 
+char* combSubStr(char letter, char* str){
+    int length = strlen(str);
+    char* tmp = malloc(length + 1);
+    tmp[0] = letter;
+    for (int i = 0; i < length; i++){
+        tmp[i + 1] = str[i];
+    }
+    return tmp;
+}
+
 struct bin_tree{ // struct for a binary tree
-    char num; // '0' or '1' relative to parent
     int leaf; // '0' if not a leaf, '1' if a leaf
     char data; // holds the letter (only applies to leaf)
     struct bin_tree * right, * left; // points at children nodes
@@ -26,23 +36,44 @@ void insert(node ** tree, char binCode[], char letter){
      * letter is the associated character/letter
      * dir is whether it is left or right of its parent node */ 
     node *temp = NULL; // temp node pointer
+    int length = strlen(binCode);
+    if (length > 0){
     char firstChar = binCode[0]; // Looks to find direction in relation to parent '0'->left, '1'->right
     char* nextBinCode = charSubStr(binCode); // binCode to be passed
-    int length = strlen(binCode);
+    //printf("length: %d\n", length);
+    //printf("firstChar: %c\n", firstChar);
     if (!(*tree)){ // if it is not an empty tree
+        //printf("If it is not an empty tree");
         temp = (node *)malloc(sizeof(node)); // allocates memory for node temp
+        //printf("Set children to NULL");
         temp->left = temp->right = NULL; // children are NULL
+        temp->leaf = 0;
         if (length == 0){ // this is then a leaf
+            //printf("Its a leaf!");
             temp->data = letter; // initialize it to its letter
             temp->leaf = 1; // state that its a leaf
-        } 
+        }
+        //printf("a");
         *tree = temp;
-        return;
+        //printf("b");
+        //return;
     }
     if ((length != 0) && (firstChar == '0')){ // it is not a leaf, we go left
+        //printf("GOING LEFT\n");
+        
         insert(&(*tree)->left, nextBinCode, letter); // insert left child w/ remaining binCode           
     } else if ((length != 0) && (firstChar == '1')){ // it is not a leaf, we go right
+        //printf("GOING RIGHT\n");
         insert(&(*tree)->right, nextBinCode, letter); // insert right child w/ remaining binCode
+    }
+    return;
+    } else{
+        temp = (node *)malloc(sizeof(node));
+        temp->left = temp->right = NULL;
+        //printf("It's a leaf!");
+        temp->data = letter;
+        temp->leaf = 1;
+        *tree = temp;
     }
 }
 
@@ -55,16 +86,30 @@ void deltree(node * tree){ // free up memory and delete the tree
 }
 
 void traverse(node ** tree, node ** root, char encMsg[]){ // go through the tree with the encMsg and print the msg.
+    //printf("aencMsg: %s\n", encMsg);
     int length = strlen(encMsg);
+    //printf("length: %d\n", length);
+    if (length > 0){
     char firstChar = encMsg[0];
+    //printf("firstChar: %c\n", firstChar);
     char* nextEncMsg = charSubStr(encMsg);
+    //printf("nextEncMsg: %s\n", nextEncMsg);
+    //printf("bencMsg: %s\n", encMsg);
     if ((*tree)->leaf == 1){ // if the node is a leaf, print its value then continue with remaining code
         printf("%c", (*tree)->data); // prints its character/letter
-        traverse(&(*root), &(*root), encMsg); // traverse starting from the root with the encMsg
+        //printf("bfirstChar: %c\n", firstChar);
+        //printf("bnextEncMsg: %s\n", nextEncMsg);
+        char* prevEncMsg = combSubStr(firstChar, nextEncMsg);
+        //printf("prevEncMsg: %s\n", prevEncMsg);
+        //printf("cencMsg: %s\n", encMsg);
+        traverse(&(*root), &(*root), prevEncMsg); // traverse starting from the root with the encMsg
     } else if (firstChar == '0'){ // if the node is not a leaf and the first char is 0, go to left child
         traverse(&(*tree)->left, &(*root), nextEncMsg); // traverse to left child with remaining EncMsg
     } else if (firstChar == '1'){ // if the node is not a leaf and the first char is 1, go to right child
         traverse(&(*tree)->right, &(*root), nextEncMsg); // traverse to right child with remaining EncMsg
+    }
+    } else {
+        printf("%c", (*tree)->data);
     }
 }
 
@@ -75,19 +120,18 @@ int main(){
     scanf("%d", &N);
     char charCode[256]; // create space for the char:binCode lines
     char c; // get rid of the garbage at the end of lines and stuff...
-    for (int i = 0; i < N + 1; i++){ // Obtain the char:binCode lines N times
-        printf("%d", i);
-        printf("getting rid of newline char\n");
+    for (int i = 0; i < N; i++){ // Obtain the char:binCode lines N times
+        //printf("getting rid of newline char\n");
         c = getchar(); // get the '\n' of the previous line
-        printf("getting the character\n");
+        //printf("getting the character\n");
         c = getchar(); // get the actual character of the char:binCode line
-        printf("scanning the charCode\n");
+        //printf("scanning the charCode\n");
         scanf("%s", charCode); // get the binCode of the line
-        printf("initiating node insertion\n");
+        //printf("initiating node insertion\n");
         insert(&root, charCode, c); // insert the leaf into the tree
-        printf("finished the insert\n");
+        //printf("finished the insert\n");
     }
-    printf("lets get the encoded message!");
+    //printf("lets get the encoded message!");
     char msg[256]; // create space for the encoded message
     scanf("%s", msg); // get the encoded message
     traverse(&root, &root, msg); // traverse the tree with the encoded message

@@ -20,12 +20,45 @@ struct bin_tree{ // struct for a binary tree
 };
 typedef struct bin_tree node; // rename bin_tree for accessibility
 
-void insert(node ** tree, char binCode[], char letter){ 
-    /* node ** tree is a pointer to the pointer of node
+void test_insert(node ** tree, char binCode[], char letter){
+    printf("Have a nice day!\n");
+    node *temp = malloc(sizeof(node));
+    printf("a");
+    char firstChar = binCode[0];
+    printf("b");
+    char* nextBinCode = charSubStr(binCode);
+    printf("c");
+    printf("nextBinCode: %s\n", nextBinCode);
+    printf("letter: %c\n", letter);
+    int length = strlen(binCode);
+    printf("length: %d\n", length);
+    if (!(*tree)){ // if it is an empty tree // misunderstood this line
+        printf("d");
+        //temp = (node *);//malloc(sizeof(node)); // allocates memory for node temp
+        temp->left = temp->right = NULL; // children are NULL
+        if (length == 0){ // this is then a leaf
+            temp->data = letter; // initialize it to its letter
+            temp->leaf = 1; // state that its a leaf
+        }
+        *tree = temp;
+        return;
+    }
+    if ((length != 0) && (firstChar == '0')){ // it is not a leaf, we go left
+        printf("%p", &(*tree)->left);
+        printf("INSERTING LEFT\n");
+        test_insert(&(*tree)->left, nextBinCode, letter); // insert left child w/ remaining binCode           
+    } else if ((length != 0) && (firstChar == '1')){ // it is not a leaf, we go right
+        printf("INSERTING RIGHT\n");
+        //test_insert(&(*tree)->right, nextBinCode, letter); // insert right child w/ remaining binCode
+    }
+}
+void insert(node ** tree, char binCode[], char letter){  
+   /* node ** tree is a pointer to the pointer of node
      * binCode[] is the associated binary code
      * letter is the associated character/letter
-     * dir is whether it is left or right of its parent node */
+     * dir is whether it is left or right of its parent node */ 
     printf("Inserting Node!");
+    /*
     node *temp = NULL; // temp node pointer
     char firstChar = binCode[0]; // Looks to find direction in relation to parent '0'->left, '1'->right
     char* nextBinCode = charSubStr(binCode); // binCode to be passed
@@ -45,6 +78,7 @@ void insert(node ** tree, char binCode[], char letter){
             insert(&(*tree)->right, nextBinCode, letter); // insert right child w/ remaining binCode
         }
     }
+    */
 }
 
 void deltree(node * tree){ // free up memory and delete the tree
@@ -84,7 +118,7 @@ int main(){
         printf("scanning the charCode\n");
         scanf("%s", charCode); // get the binCode of the line
         printf("initiating node insertion\n");
-        insert(&root, charCode, c); // insert the leaf into the tree
+        test_insert(&root, charCode, c); // insert the leaf into the tree
         printf("finished the insert\n");
     }
     char msg[256]; // create space for the encoded message

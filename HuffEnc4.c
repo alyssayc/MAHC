@@ -25,12 +25,10 @@ void insert(node ** tree, char binCode[], char letter){
      * binCode[] is the associated binary code
      * letter is the associated character/letter
      * dir is whether it is left or right of its parent node */ 
-    
     node *temp = NULL; // temp node pointer
     char firstChar = binCode[0]; // Looks to find direction in relation to parent '0'->left, '1'->right
     char* nextBinCode = charSubStr(binCode); // binCode to be passed
     int length = strlen(binCode);
-
     if (!(*tree)){ // if it is not an empty tree
         temp = (node *)malloc(sizeof(node)); // allocates memory for node temp
         temp->left = temp->right = NULL; // children are NULL
@@ -77,7 +75,8 @@ int main(){
     scanf("%d", &N);
     char charCode[256]; // create space for the char:binCode lines
     char c; // get rid of the garbage at the end of lines and stuff...
-    for (int i = 0; i < N; i++){ // Obtain the char:binCode lines N times
+    for (int i = 0; i < N + 1; i++){ // Obtain the char:binCode lines N times
+        printf("%d", i);
         printf("getting rid of newline char\n");
         c = getchar(); // get the '\n' of the previous line
         printf("getting the character\n");

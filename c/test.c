@@ -1,37 +1,15 @@
+/* strtok example */
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
-/* Maximum name size + 1. */
-#define MAX_NAME_SZ 256
-
-int main(int argC, char *argV[]) {
-    /* Allocate memory and check if okay. */
-    char *name = malloc (MAX_NAME_SZ);
-    if (name == NULL) {
-        printf ("No memory\n");
-        return 1;
+int main(){
+    char str[] ="- This, a sample string.";
+    char * pch;
+    printf("Splitting string \"%s\" into tokens:\n", str);
+    pch = strtok(str," ,.-");
+    while (pch != NULL){
+        printf("%s\n",pch);
+        pch = strtok(NULL, " ,.-");
     }
-    int N;
-    scanf("%d", &N);
-    printf("%d\n", N);
-    char c;
-    while((c = getchar()) != '\n' && c != EOF){
-    }
-    for (int i = 0; i < N; i++){
-    /* Ask user for name. */
-    printf("What is your name? ");
-    /* Get the name, with size limit. */
-    fgets (name, MAX_NAME_SZ, stdin);
-
-    /* Remove trailing newline, if there. */
-    if ((strlen(name)>0) && (name[strlen (name) - 1] == '\n'))
-        name[strlen (name) - 1] = '\0';
-
-    /* Say hello. */
-    printf("Hello %s. Nice to meet you.\n", name);
-    }
-    /* Free memory and exit. */
-    free (name);
     return 0;
 }

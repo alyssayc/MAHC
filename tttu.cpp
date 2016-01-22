@@ -81,7 +81,7 @@ void displayBoard(char* board){ // Change this to look better and because this i
 	// Can implement color maybe....
 }
 
-bool checkSpace(char* board, int index){ // returns whether the space is open or not
+bool checkSpace(vector<char> board, int index){ // returns whether the space is open or not
 	if ((board[index] == *"X") || (board[index] == *"O")){
 		return false;
 	} else{
@@ -122,11 +122,37 @@ int main(){
 	bigBoard[6] = t_6; bigBoard[7] = t_7; bigBoard[8] = t_8;
 	int index;
 	string Player1, Player2, temp;
-	cout << "Player 1, please enter a name: ";
+	cout << "Hello there! Welcome to Ultimate Tic Tac Toe!!!!!" << endl << "Player 1, please enter a name: ";
 	cin >> Player1;
 	cout << "Player 2, please enter a name: ";
 	cin >> Player2;
-	cout << endl;
+	cout << endl << "Currently, it is" << Player1 << "'s turn. " << endl << "Please choose the number of the small tic-tac-toe board you would like make a move in." << endl;
+	int stttIndex; // Small Tic Tac Toe Index
+	cin >> stttIndex; // corresponds to which board in bigBoard will be altered
 	// maybe add on stuff here like if same name, blah blah would you like a name? blah blah change name keep name blah blah
 	int counter = 0; // token to keep track of who's turn it is
+	do{
+		temp = ((counter % 2) == 0) ? Player1 : Player2;
+		cout << "It is " << temp << "'s turn. " << endl;
+		cout << "You are marking in small tic tac toe board #" << stttIndex << endl;
+		cout << "Please choose the # of the square in this stttb that you want to mark: ";
+		cin >> index;
+		if (!checkSpace(bigBoard[stttIndex], index)){
+			do{
+				cout << "Sorry, that spot is occupied! Please choose another location: ";
+				cin >> index;
+			} while (!checkSpace(bigBoard[stttIndex], index));
+		}
+
+	} while (false);
 }
+
+
+
+
+
+
+
+
+
+

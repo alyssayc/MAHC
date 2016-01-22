@@ -36,7 +36,8 @@ _____|_____|_____ | _____|_____|_____ | _____|_____|_____
      |     |      |      |     |      |      |     |     
 */
 
-bool gameOver(char* board){ // Returns whether the game is over or not.
+// Not converted
+bool gameOver(vector<char> board){ // Returns whether the game is over or not.
 	// Should be a 3x3 board in this instance
 	/*
 	if (strlen(board) != 9){
@@ -62,7 +63,8 @@ bool gameOver(char* board){ // Returns whether the game is over or not.
 	return false;
 }
 
-void displayBoard(char* board){ // Change this to look better and because this is a template.... 
+// Not converted
+void displayBoard(vector< vector<char> > board){ // Change this to look better and because this is a template.... 
 	cout << "     |     |     " << endl;
 	cout << "  " << board[0] << "  |  " << board[1] << "  |  " << board[2] << endl;
 
@@ -81,6 +83,7 @@ void displayBoard(char* board){ // Change this to look better and because this i
 	// Can implement color maybe....
 }
 
+// finished converting
 bool checkSpace(vector<char> board, int index){ // returns whether the space is open or not
 	if ((board[index] == *"X") || (board[index] == *"O")){
 		return false;

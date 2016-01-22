@@ -7,10 +7,8 @@ using namespace std;
 
 /*
  
- O 
-\|/
- | 
-/ \
+ This is the display: 7 strikes/outs
+
 
 	_____
 	|	|
@@ -96,36 +94,74 @@ void displayMan (int num) {
 
 }
 
-void ClearScreen()
-    {
-    cout << string( 100, '\n' );
-    }
+void clearScreen(){
+
+    cout << string( 50, '\n' );
+}
+
+
+void printGuess(vector<char> guess){
+
+	cout << "Current Status: "; 
+	int count=0;
+	for (int i = 0; i < guess.size() ; i++){
+		if (guess[i] == '*'){
+			count++;
+		}
+		cout << BOLDCYAN << guess[i] << " " << RESET;
+	}
+	cout << endl << "You have " << count << " letters left to guess" << endl << endl;
+}
 
 
 int main() {
 
 	int strikes = 0;
 	string phrase, tmp;
-	vector<char> guess;
 
-	/*cout << "Hello! Let's play hangman!" << endl << BOLDCYAN << "Enter your phrase to guess: " << RESET << endl;
-	cin >> phrase;
+	//Player enters word for other player to guess
+	//Once they confirm their word, player hands over to other player to guess
+	cout << "Hello! Let's play hangman!" << endl << BOLDCYAN << "Enter your phrase to guess: " << RESET ;
+	getline(cin, phrase);
 
 	cout << "Your phrase is : " << phrase << ". If that's correct, type 'ready' to clear the screen, then hand the game over to the guesser:  ";
 	cin >> tmp;
 
 	if (tmp.compare("ready") == 0){
-		ClearScreen();
-		displayMan(strikes);
+		clearScreen();
 	}
-	*/=
 
-	for (int i = 0; i < phrase.length() << i++){
-		guess.push_back == "_";
 
+	//Other Player Begins:
+	vector<char> guess, tmp2;
+
+	for (int i = 0; i < phrase.length() ; i++){
+		guess.push_back('*');
 	}
 	
+	displayMan(strikes);
+	printGuess(guess);
+	
+	//Time to Guess!
+	//ask to enter letter or guess the word
+	char letter;
+	cout << "Enter your letter: ";
+	cin >> letter;
+	cout << endl << "letter is " << letter << endl;
 
+	for (int i = 0; i < phrase.length() ; i++){
+		cout << "Letter is: " << letter << " and actual is " << phrase[i] << endl;
+		if(letter == phrase[i]){
+			tmp2.push_back(phrase[i]);
+		}
+		else{
+			tmp2.push_back('*');
+		}
+	}
+
+	guess=tmp2;
+
+	printGuess(guess);
 	//testing comparing chars
 
 	/*phrase = "hi";

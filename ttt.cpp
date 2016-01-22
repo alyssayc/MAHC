@@ -36,7 +36,7 @@ bool gameOver(char* board){ // Returns whether the game is over or not.
 	return false;
 }
 
-void displayBoard(char* board){
+void displayBoard(char* board){ // Change this to look better and because this is a template.... 
 	cout << "     |     |     " << endl;
 	cout << "  " << board[0] << "  |  " << board[1] << "  |  " << board[2] << endl;
 
@@ -64,17 +64,17 @@ bool checkSpace(char* board, int index){ // returns whether the space is open or
 }
 
 int main(){
-	/*
+	
 	cout << "Hello! Would you like to play tic-tac-toe? (y/n) ";
 	string answer;
 	cin >> answer;
-	//int counter = 0;
+	int tick = 0;
 	// can implement a series of dialogue, an option to go back to games home?
 	
 	while (answer != "y"){
 		if (answer == "n"){
-			counter++;
-			if (counter < 6){}
+			tick++;
+			if (tick < 6){
 				cout << "Oh... " << endl << "Would you like to play tic-tac-toe now? (y/n) ";
 			}
 		}
@@ -83,7 +83,7 @@ int main(){
 		}
 		cin >> answer;
 	}
-	*/
+
 	char spaces[10];
 	spaces[0] = *"0"; spaces[1] = *"1"; spaces[2] = *"2";
 	spaces[3] = *"3"; spaces[4] = *"4"; spaces[5] = *"5";

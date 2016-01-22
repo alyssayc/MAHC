@@ -103,7 +103,6 @@ int main(){
 	do{
 		displayBoard(spaces);
 		temp = ((counter % 2) == 0) ? Player1 : Player2;
-		counter++;
 		cout << "It is " << temp << "'s turn. " << endl;
 		cout << "Please choose the number corresponding to the square you would like to mark: ";
 		cin >> index;
@@ -114,6 +113,7 @@ int main(){
 			} while (!checkSpace(spaces, index));
 		} 
 		spaces[index] = ((counter % 2) == 0) ? *"X" : *"O";
+		counter++;
 	} while (!gameOver(spaces));
 	displayBoard(spaces);
 	cout << "Congratulations! " << temp << " has won!" << endl;

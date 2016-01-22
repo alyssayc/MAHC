@@ -20,20 +20,40 @@ bool gameOver(char* board){ // Returns whether the game is over or not.
 	} */
 	// Check win conditions vertically and horizontally
 	for (int i = 0; i < 3; i++){
-		if (board[3 * i] == board[3 * i + 1] && board[3 * i + 1] == board[3 * i + 2]){
+		if ((board[3 * i] == board[3 * i + 1] && board[3 * i + 1] == board[3 * i + 2]) 
+			&& (board[3 * i] != *" " && board[3 * i + 1] != *" " && board[3 * i + 2] != *" ")){
+			cout << "a" << "i" << endl;
 			return true; // If the condition is true, then there is a row that has been completed
-		} else if (board[i] == board[i + 3] && board[i + 3] == board[i + 6]){
+		} else if ((board[i] == board[i + 3] && board[i + 3] == board[i + 6])
+				&& (board[i] != *" " && board[i + 3] != *" " && board[i + 6] != *" ")){
+			cout << "b" << "i" << endl;
 			return true;
 		} 
 	}
 	// Now check the diagonals
-	if ((board[0] == board[4] && board[4] == board[8]) || (board[2] == board[4] && board[4] == board[6])){
+	if (((board[0] != *" " && board[4] != *" " && board[8] != *" ") && (board[0] == board[4] && board[4] == board[8])) 
+		|| ((board[2] != *" " && board[4] != *" " && board[6] != *" ") && (board[2] == board[4] && board[4] == board[6]))){
+		cout << "c" << endl;
 		return true;
 	}
 	return false;
 }
 
 void displayBoard(char* board){
+	cout << "     |     |     " << endl;
+	cout << "  " << board[0] << "  |  " << board[1] << "  |  " << board[2] << endl;
+
+	cout << "_____|_____|_____" << endl;
+	cout << "     |     |     " << endl;
+
+	cout << "  " << board[3] << "  |  " << board[4] << "  |  " << board[5] << endl;
+
+	cout << "_____|_____|_____" << endl;
+	cout << "     |     |     " << endl;
+
+	cout << "  " << board[6] << "  |  " << board[7] << "  |  " << board[8] << endl;
+
+	cout << "     |     |     " << endl << endl;
 	// Displays the current board... 
 	// Can implement color maybe....
 }
@@ -68,16 +88,20 @@ int main(){
 	}
 	*/
 	char spaces[10];
+	for (int i = 0; i < 9; i++){
+		spaces[i] = *" ";
+	}
 	int index;
 	string Player1, Player2, temp;
 	cout << "Player 1, please enter a name: ";
 	cin >> Player1;
 	cout << "Player 2, please enter a name: ";
 	cin >> Player2;
+	cout << endl;
 	// maybe add on stuff here like if same name, blah blah would you like a name? blah blah change name keep name blah blah
 	int counter = 0; // token to keep track of who's turn it is
-	displayBoard(spaces);
 	do{
+		displayBoard(spaces);
 		temp = ((counter % 2) == 0) ? Player1 : Player2;
 		counter++;
 		cout << "It is " << temp << "'s turn. " << endl;
@@ -91,4 +115,6 @@ int main(){
 		} 
 		spaces[index] = ((counter % 2) == 0) ? *"X" : *"O";
 	} while (!gameOver(spaces));
+	displayBoard(spaces);
+	cout << "Congratulations! " << temp << " has won!" << endl;
 }

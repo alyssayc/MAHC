@@ -22,18 +22,15 @@ bool gameOver(char* board){ // Returns whether the game is over or not.
 	for (int i = 0; i < 3; i++){
 		if ((board[3 * i] == board[3 * i + 1] && board[3 * i + 1] == board[3 * i + 2]) 
 			&& (board[3 * i] != *" " && board[3 * i + 1] != *" " && board[3 * i + 2] != *" ")){
-			cout << "a" << "i" << endl;
 			return true; // If the condition is true, then there is a row that has been completed
 		} else if ((board[i] == board[i + 3] && board[i + 3] == board[i + 6])
 				&& (board[i] != *" " && board[i + 3] != *" " && board[i + 6] != *" ")){
-			cout << "b" << "i" << endl;
 			return true;
 		} 
 	}
 	// Now check the diagonals
 	if (((board[0] != *" " && board[4] != *" " && board[8] != *" ") && (board[0] == board[4] && board[4] == board[8])) 
 		|| ((board[2] != *" " && board[4] != *" " && board[6] != *" ") && (board[2] == board[4] && board[4] == board[6]))){
-		cout << "c" << endl;
 		return true;
 	}
 	return false;
@@ -88,9 +85,9 @@ int main(){
 	}
 	*/
 	char spaces[10];
-	for (int i = 0; i < 9; i++){
-		spaces[i] = *" ";
-	}
+	spaces[0] = *"0"; spaces[1] = *"1"; spaces[2] = *"2";
+	spaces[3] = *"3"; spaces[4] = *"4"; spaces[5] = *"5";
+	spaces[6] = *"6"; spaces[7] = *"7"; spaces[8] = *"8";
 	int index;
 	string Player1, Player2, temp;
 	cout << "Player 1, please enter a name: ";
@@ -100,6 +97,7 @@ int main(){
 	cout << endl;
 	// maybe add on stuff here like if same name, blah blah would you like a name? blah blah change name keep name blah blah
 	int counter = 0; // token to keep track of who's turn it is
+	int catsGame = 0;
 	do{
 		displayBoard(spaces);
 		temp = ((counter % 2) == 0) ? Player1 : Player2;
@@ -113,8 +111,12 @@ int main(){
 			} while (!checkSpace(spaces, index));
 		} 
 		spaces[index] = ((counter % 2) == 0) ? *"X" : *"O";
-		counter++;
-	} while (!gameOver(spaces));
+		counter++; catsGame++;
+	} while (!gameOver(spaces) && catsGame < 9);
 	displayBoard(spaces);
-	cout << "Congratulations! " << temp << " has won!" << endl;
+	if (gameOver(spaces)){
+		cout << "Congratulations! " << temp << " has won!" << endl;
+	} else{
+		cout << "It's a tie!" << endl;
+	}
 }

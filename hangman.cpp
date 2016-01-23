@@ -148,7 +148,7 @@ int main() {
 
 
 		//Other Player Begins:
-		vector<char> guess, recentChanges, compare;
+		vector<char> guess, recentChanges, compare, wrongLetters;
 
 		//instantiates guess to be "* * * * *.." to match the num of chars of the phrase
 		for (int i = 0; i < phrase.length() ; i++){
@@ -188,9 +188,11 @@ int main() {
 				}
 			}
 
-			//increment strikes if didn't hit a match
+			//increment strikes if didn't hit a match, append letter to wrongLetters vector
 			if (boo == 0){
 				strikes++; 
+				wrongLetters.push_back(letter);
+
 			}
 
 			//update guess to reflect recent changes
@@ -219,6 +221,13 @@ int main() {
 			//cout << "Strikes: " << strikes << endl;
 			
 			displayMan(strikes);
+
+			//Print out incorrect guesses
+			cout << "Previous Incorrect Guesses: ";
+			for (int i = 0 ; i < wrongLetters.size() ; i++){
+				cout << wrongLetters[i] << " ";
+			}
+			cout << endl << endl;
 			//printGuess(guess);
 
 

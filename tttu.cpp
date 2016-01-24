@@ -82,6 +82,7 @@ bool gameOverSmallBoard(vector<char> board){ // Returns whether the game is over
 }
 
 bool gameOverBigBoard(vector< vector<char> > board, vector<char> X_win, vector<char> O_win){
+
 	for (int i = 0; i < 3; i++){
 		if ((board[3 * i] == board[3 * i + 1] && board[3 * i + 1] == board[3 * i + 2]) 
 			&& (board[3 * i] == X_win || board[3 * i] == O_win)){
@@ -108,30 +109,39 @@ bool gameOverBigBoard(vector< vector<char> > board, vector<char> X_win, vector<c
 	}
 	return false;
 }
-/*
-bool gameOverBigBoard(vector< vector<char> > board){
-	for (int i = 0; i < 3; i++){
-		if ((board[3 * i] == board[3 * i + 1] && board[3 * i + 1] == board[3 * i + 2]) 
-			&& (board[3 * i] != *" " && board[3 * i + 1] != *" " && board[3 * i + 2] != *" ")){
-			return true; // If the condition is true, then there is a row that has been completed
-		} else if ((board[i] == board[i + 3] && board[i + 3] == board[i + 6])
-				&& (board[i] != *" " && board[i + 3] != *" " && board[i + 6] != *" ")){
-			return true;
-		} 
-	}
-	// Now check the diagonals
-	if (((board[0] != *" " && board[4] != *" " && board[8] != *" ") && (board[0] == board[4] && board[4] == board[8])) 
-		|| ((board[2] != *" " && board[4] != *" " && board[6] != *" ") && (board[2] == board[4] && board[4] == board[6]))){
-		return true;
-	}
-	return false;
-}*/
 
-// Not converted
-/*
-void displayBoard(vector< vector<char> > board){ // Change this to look better and because this is a template.... 
+void displayBigBoard(vector< vector<char> > board, vector<char> X_win, vector<char> O_win){
+
+	vector<char> temp(9);
+	for (int i = 0; i < 9; i++){
+		if (board[i] == X_win){
+			temp[i] = *"X";
+		} else if (board[i] == O_win){
+			temp[i] = *"O";
+		} else{
+			temp[i] = *" ";
+		}
+	}
+	cout << "Displaying the big board: " << endl;
+	cout << "     |     |     " << endl;
+	cout << "  " << temp[0] << "  |  " << temp[1] << "  |  " << temp[2] << endl;
+
+	cout << "_____|_____|_____" << endl;
+	cout << "     |     |     " << endl;
+
+	cout << "  " << temp[3] << "  |  " << temp[4] << "  |  " << temp[5] << endl;
+
+	cout << "_____|_____|_____" << endl;
+	cout << "     |     |     " << endl;
+
+	cout << "  " << temp[6] << "  |  " << temp[7] << "  |  " << temp[8] << endl;
+
+	cout << "     |     |     " << endl << endl;
+}
+
+void displaySmallBoard(vector<char> board, int index){ // Change this to look better and because this is a template.... 
 	// First display the first row...
-
+	cout << "Displaying small board #" << index << endl;
 	cout << "     |     |     " << endl;
 	cout << "  " << board[0] << "  |  " << board[1] << "  |  " << board[2] << endl;
 
@@ -148,9 +158,7 @@ void displayBoard(vector< vector<char> > board){ // Change this to look better a
 	cout << "     |     |     " << endl << endl;
 	// Displays the current board... 
 	// Can implement color maybe....
-}*/
-
-// finished converting
+}
 
 bool checkSpace(vector<char> board, int index){ // returns whether the space is open or not
 	if ((board[index] == *"X") || (board[index] == *"O")){
@@ -168,6 +176,9 @@ int main(){
 	vector<char> t_6(9); vector<char> t_7(9); vector<char> t_8(9);
 	// Create small tic tac toe boards for when any of them are won with X or O
 	vector<char> X_won(9); vector<char> O_won(9);
+	for (int i = 0; i < 9; i++){
+		O_won[i] = *"o";
+	}
 
 	// Create the big tic tac toe board
 	vector< vector<char> > bigBoard(9, vector<char>(9));
@@ -196,31 +207,35 @@ int main(){
 
 	// Begin with selecting indices and marking
 
-	// DISPLAY
+	displayBigBoard(bigBoard, X_won, O_won);
 	cout << endl << "It is now " << Player1 << "'s turn." << endl;
 	cout << "Please choose from the big board, which small board to mark in." << endl;
 	// DISPLAY
 	cout << "Small Board #";
 	cin >> bigBoardIndex;
 	// Something about are you sure, you can go back, blah blah
+	displaySmallBoard(bigBoard[bigBoardIndex], bigBoardIndex);
 	cout << endl << "Please choose where in Small Board #" << bigBoardIndex << " to mark." << endl;
 	cin >> smBoardIndex;
 	bigBoard[bigBoardIndex][smBoardIndex] = *"X";
 	bigBoardIndex = smBoardIndex;
+	counter++;
 	do{
-		// DISPLAY
+		displayBigBoard(bigBoard, X_won, O_won);
+		//displaySmallBoard(bigBoard[bigBoardIndex], bigBoardIndex);
 		temp = ((counter % 2) == 0) ? Player1 : Player2;
-		cout << "It is " << temp << "'s turn. " << endl;
+		cout << "It is " << temp<< "'s turn. " << endl;
 		
 		/*
 		while (gameOverSmallBoard(bigBoard[bigBoardIndex], bigBoardIndex)){
 		*/
-		if (bigBoardIndex == -1){
+		while (bigBoard[bigBoardIndex] == X_won || bigBoard[bigBoardIndex] == O_won){
 			cout << "Small Board #" << bigBoardIndex << " has been won, please choose another small board." << endl;
 			cin >> bigBoardIndex;
 		}
-		// DISPLAY
-		cout << "You are currently viewing Small Board #" << bigBoardIndex << endl;
+		displaySmallBoard(bigBoard[bigBoardIndex], bigBoardIndex);
+		
+		//cout << "You are currently viewing Small Board #" << bigBoardIndex << endl;
 		//cout << "Would you like to view another small board? (y/n)" ;
 		//DISPLAY
 		cout << "Please choose where in Small Board #" << bigBoardIndex << " to mark." <<endl;
@@ -232,54 +247,14 @@ int main(){
 		bigBoard[bigBoardIndex][smBoardIndex] = ((counter % 2) == 0) ? *"X" : *"O";
 		if (gameOverSmallBoard(bigBoard[bigBoardIndex])){
 			bigBoard[bigBoardIndex] = ((counter % 2) == 0) ? X_won : O_won;
-			bigBoardIndex = -1; // to reset the index
-		} else{
-			bigBoardIndex = smBoardIndex;
+			//cout << "Setting bigBoardIndex to -1" << endl;
+			//bigBoardIndex = -1; // to reset the index
 		}
+		bigBoardIndex = smBoardIndex;
 		counter++;
-	} while(!gameOverBigBoard(bigBoard, X_won, O_won));
-
-	/*
-	int index;
-	string Player1, Player2, temp;
-	cout << "Hello there! Welcome to Ultimate Tic Tac Toe!!!!!" << endl                     << "Player 1, please enter a name: ";
-	cin >> Player1;
-	cout << "Player 2, please enter a name: ";
-	cin >> Player2;
-	cout << endl << "Currently, it is" << Player1 << "'s turn. " << endl;
-	int stttIndex = -1; // Small Tic Tac Toe Index
-	// corresponds to which board in bigBoard will be altered
-	// maybe add on stuff here like if same name, blah blah would you like a name? blah blah change name keep name blah blah
-	int counter = 0; // token to keep track of who's turn it is
-	do{
-		if (stttIndex == -1 || gameOverSmallBoard(bigBoard[stttIndex])){ // checks if a small board is finished
-			cout << "Please choose which small tic tac toe board to mark it." << endl;
-			cin >> stttIndex;
-			cout << "Please choose where in the small tic tac toe board to mark in." << endl;
-			cin >> index;
-		} else{
-			// display board
-			temp = ((counter % 2) == 0) ? Player1 : Player2;
-			cout << "It is " << temp << "'s turn. " << endl;
-			cout << "Please choose where in the small tic tac toe board to mark in." << endl;
-			cin >> index;
-		}
-		while (!checkSpace(bigBoard[stttIndex], index)){
-			cout << "Sorry, that spot is occupied! Please choose another location: ";
-			cin index;
-		}
-		bigBoard[stttIndex][index] = ((counter % 2) == 0) ? *"X" : *"O";
-		counter++;
-		stttIndex = index;
-	} while(!gameOverBigBoard(bigBoard));
-	// display board
-	if (gameOverBigBoard(bigBoard)){
-		cout << "Congratulations! " << temp << " has won!" << endl;
-	} else{
-		cout << "It's a tie!" << endl;
-	}
-	*/
-	
+	} while(!gameOverBigBoard(bigBoard, X_won, O_won));	
+	displayBigBoard(bigBoard, X_won, O_won);
+	cout << "Congratulations! " << temp << " has won!" << endl;
 }
 
 

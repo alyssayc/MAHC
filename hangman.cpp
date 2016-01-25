@@ -4,6 +4,8 @@
 #include "color.h" // include colors
 #include <typeinfo>
 #include "hangman.h"
+#include <cctype> // used to check if the word/guess is a word
+
 using namespace std;
 
 /*
@@ -100,7 +102,6 @@ void clearScreen(){
     cout << string( 50, '\n' );
 }
 
-
 int printGuess(vector<char> guess){
 
 	cout << "Current Status: "; 
@@ -115,37 +116,58 @@ int printGuess(vector<char> guess){
 	return count;
 }
 
-
+int isWord(string word){
+	for (int i = 0; i < word.length(); i++){
+		if (!isalpha(word[i])){
+			return 0;
+		}
+	}
+	return 1;
+}
 
 int playHangman() {
 
 	int strikes = 0, playAgain = 0;
-	string phrase, tmp;
+	string phrase, tmp, trash;
 	char tryAgain;
 
 	//Player enters word for other player to guess
 	//Once they confirm their word, player hands over to other player to guess
 	while (playAgain == 0){
-		cout << "Hello! Let's play hangman!" << endl << BOLDCYAN << "Enter your word to guess: " << RESET ;
+		cout << "Hello! Let's play hangman!" << endl;
+
+enterWord:	cout << BOLDCYAN << "Enter your word to guess: " << RESET ;
 		cin >> phrase;
 
+		if (!isWord(phrase)){
+			cout << "Sorry! That is not an acceptable word. Please only include letters in your word." << endl;
+			goto enterWord;
+		}
+		cout << "Your word is : " << BOLDCYAN << phrase << RESET << "." << endl;
+		cout << "If that's correct, type 'ready' to clear the screen, then hand the game over to the guesser." << endl << "Otherwise, type anything else." << endl;
+		
+		/*
 		cout << "Your word is : " << BOLDCYAN << phrase << RESET << ". If that's correct, type 'ready' to clear the screen, then hand the game over to the guesser:  ";
 		cin >> tmp;
-
+		*/
+		//getline(cin, trash);
+		cin >> tmp;
+		if (tmp != "ready"){
+			goto enterWord;
+		}
+		clearScreen();
+		
+		/*
 		int ready=0;
 		while (ready==0){
 			if (tmp.compare("ready") == 0){
 				ready = 1;
 				clearScreen();
-			}
-			else {
+			} else {
 				cout << endl << endl << "Oops. Looks like you're not ready! Type 'ready' when you're ready to clear the screen, then hand the game over to the guesser: ";
 				cin >> tmp;
 			}
-
-		}
-		
-
+		}*/
 
 		//Other Player Begins:
 		vector<char> guess, recentChanges, compare, wrongLetters;
@@ -170,12 +192,12 @@ int playHangman() {
 			//while (isLetter == 0) {
 				cout << "Enter your letter: ";
 				cin >> letter;
-				cout << typeid(letter).name() << endl;
+				//cout << typeid(letter).name() << endl;
 				/*if (typeid(letter).name() == 'c'){
 					isLetter = 1;
 				}*/
 			//}
-			cout << "======================================================================";
+			//cout << "======================================================================";
 			clearScreen();
 			//cout << endl << "letter is " << letter << endl;
 
@@ -194,7 +216,6 @@ int playHangman() {
 			if (boo == 0){
 				strikes++; 
 				wrongLetters.push_back(letter);
-
 			}
 
 			//update guess to reflect recent changes
@@ -212,10 +233,8 @@ int playHangman() {
 						compare.push_back('*');
 					}
 				}
-
 				guess=compare;
 			}
-
 
 			compare.clear();
 			recentChanges.clear();
@@ -232,9 +251,7 @@ int playHangman() {
 			cout << endl << endl;
 			//printGuess(guess);
 
-
-			if (strikes == 7){
-				
+			if (strikes == 7){				
 				cout << "Uh oh. You lost. Try again? (y/n): ";
 				cin >> tryAgain;
 				if (tryAgain == 'n'){
@@ -255,8 +272,6 @@ int playHangman() {
 				break;
 			} 
 		}
-
-		
 	}
 
 	

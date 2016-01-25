@@ -88,20 +88,6 @@ int main() {
 			cout << "!!!" << endl << "Please choose one of the numbers (1, 2, 3, 4)." << endl;
 			goto choose;
 	}
-
-    /*
-	=============================
-	|   This was Game Center!   |
-	|	 A project for 6.179	|
-	|							|
-	|			 By:			|
-	|		 Alyssa Chen		|
-	|			  &				|
-	|		Mitchell Hwang		|
-	|							|
-	| Thank you for playing!!!! |
-	=============================
-    */
 	clearScreen();
     cout << "=============================" << endl;
 	cout << "|   This was Game Center!   |" << endl;

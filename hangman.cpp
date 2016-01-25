@@ -157,6 +157,7 @@ int playHangman() {
 		
 		//initial display of man and current status
 		displayMan(strikes);
+		cout << endl << endl;
 		printGuess(guess);
 		
 		//Time to Guess!
@@ -175,6 +176,7 @@ int playHangman() {
 				}*/
 			//}
 			cout << "======================================================================";
+			clearScreen();
 			//cout << endl << "letter is " << letter << endl;
 
 			for (int i = 0; i < phrase.length() ; i++){
@@ -249,6 +251,7 @@ int playHangman() {
 					cout << "Thanks for playing!" << endl;
 					playAgain = 1;
 				}
+				else {clearScreen();}
 				break;
 			} 
 		}

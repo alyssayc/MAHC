@@ -167,7 +167,7 @@ void displaySmallBoard(vector<char> board, int index){ // Change this to look be
 	// Can implement color maybe....
 }
 
-bool checkSpace(vector<char> board, int index){ // returns whether the space is open or not
+bool checkSpaceUltimate(vector<char> board, int index){ // returns whether the space is open or not
 	if ((board[index] == *"X") || (board[index] == *"O")){
 		return false;
 	} else{
@@ -176,7 +176,7 @@ bool checkSpace(vector<char> board, int index){ // returns whether the space is 
 }
 
 
-int main(){
+int playTTTU(){
 	// instantiate the small tic tac toe boards;
 beg:cout << "Hello! Would you like to play ultimate tic-tac-toe? (y/n) ";
 	string answer;
@@ -302,7 +302,7 @@ beg:cout << "Hello! Would you like to play ultimate tic-tac-toe? (y/n) ";
 		//DISPLAY
 		cout << "Please choose where in Small Board #" << bigBoardIndex << " to mark." <<endl;
 		cin >> smBoardIndex;
-		while (!checkSpace(bigBoard[bigBoardIndex], smBoardIndex)){
+		while (!checkSpaceUltimate(bigBoard[bigBoardIndex], smBoardIndex)){
 			cout << "Sorry, that spot is occupied! Please choose another location: ";
 			cin >> smBoardIndex;
 		}
@@ -317,6 +317,8 @@ beg:cout << "Hello! Would you like to play ultimate tic-tac-toe? (y/n) ";
 	} while(!gameOverBigBoard(bigBoard, X_won, O_won));	
 	displayBigBoard(bigBoard, X_won, O_won);
 	cout << "Congratulations! " << temp << " has won!" << endl;
+
+	return 0;
 }
 
 

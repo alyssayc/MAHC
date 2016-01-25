@@ -243,6 +243,11 @@ int checkDiagonal(vector< vector<int> >& board, char input, int player){
 	return 0;
 }
 
+void clearScreen2(){
+
+    cout << string( 40, '\n' );
+}
+
 int playConnectFour(){
 
 	vector<int> a, b, c, d, e, f, g;
@@ -280,7 +285,7 @@ int playConnectFour(){
 	cout << "Player " << player << " (" << color << "): " ;
 	cout << "Where do you want to move? (Enter a character from a - g): ";
 	cin >> input;
-
+	clearScreen2();
 	updateBoard(columns, input, player);
 	displayBoard(columns);
 	cout << endl;

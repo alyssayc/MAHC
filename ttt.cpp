@@ -22,7 +22,7 @@ bool gameOver(char* board){ // Returns whether the game is over or not.
 	return false;
 }
 
-void displayBoard(char* board){ // Change this to look better and because this is a template.... 
+void displayTTT(char* board){ // Change this to look better and because this is a template.... 
 	cout << "     |     |     " << endl;
 	cout << "  " << board[0] << "  |  " << board[1] << "  |  " << board[2] << endl;
 
@@ -49,7 +49,7 @@ bool checkSpace(char* board, int index){ // returns whether the space is open or
 	}
 }
 
-int main(){
+int playTTT(){
 	
 beg:cout << "Hello! Would you like to play tic-tac-toe? (y/n) ";
 	string answer;
@@ -111,7 +111,7 @@ beg:cout << "Hello! Would you like to play tic-tac-toe? (y/n) ";
 	int counter = 0; // token to keep track of who's turn it is
 	int catsGame = 0;
 	do{
-		displayBoard(spaces);
+		displayTTT(spaces);
 		temp = ((counter % 2) == 0) ? Player1 : Player2;
 		cout << "It is " << temp << "'s turn. " << endl;
 		cout << "Please choose the number corresponding to the square you would like to mark: ";
@@ -128,7 +128,7 @@ num:	while (index > 9 || index < 1){
 		spaces[index - 1] = ((counter % 2) == 0) ? *"X" : *"O";
 		counter++; catsGame++;
 	} while (!gameOver(spaces) && catsGame < 9);
-	displayBoard(spaces);
+	displayTTT(spaces);
 	if (gameOver(spaces)){
 		cout << "Congratulations! " << temp << " has won!" << endl;
 	} else{
@@ -139,4 +139,5 @@ num:	while (index > 9 || index < 1){
 	if (answer == "y"){
 		goto beg;
 	}
+	return 0;
 }

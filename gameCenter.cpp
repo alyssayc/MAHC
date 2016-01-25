@@ -17,10 +17,10 @@ int main() {
     cout << BOLDGREEN << "We have a great selection of games: " << endl << endl;
     cout << "1. Tic Tac Toe            2. Ultimate Tic Tac Toe" << endl;
     cout << "3. Hangman                4. Connect Four" << RESET << endl;
-    cout << endl << BOLDCYAN << "Which game do you want to play today? ";
+    char readyToPlay;
+choose: cout << endl << BOLDCYAN << "Which game do you want to play today? ";
     cin >> game;
     cout << endl;
-    char readyToPlay;
 
 	switch(game){
 
@@ -44,6 +44,9 @@ int main() {
 				playConnectFour();
 			}
 			break;
+		default:
+			cout << "!!!" << endl << "Please choose one of the numbers (1, 2, 3, 4)." << endl;
+			goto choose;
 	}
 
     return 0;

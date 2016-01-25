@@ -3,7 +3,7 @@
 #include <vector>
 #include "color.h" // include colors
 #include <typeinfo>
-
+#include "hangman.h"
 using namespace std;
 
 /*
@@ -117,7 +117,7 @@ int printGuess(vector<char> guess){
 
 
 
-int main() {
+int playHangman() {
 
 	int strikes = 0, playAgain = 0;
 	string phrase, tmp;

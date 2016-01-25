@@ -243,7 +243,7 @@ int checkDiagonal(vector< vector<int> >& board, char input, int player){
 	return 0;
 }
 
-int main(){
+int playConnectFour(){
 
 	vector<int> a, b, c, d, e, f, g;
 

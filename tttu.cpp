@@ -178,6 +178,26 @@ bool checkSpace(vector<char> board, int index){ // returns whether the space is 
 
 int main(){
 	// instantiate the small tic tac toe boards;
+beg:cout << "Hello! Would you like to play ultimate tic-tac-toe? (y/n) ";
+	string answer;
+	cin >> answer;
+	int tick = 0;
+	// can implement a series of dialogue, an option to go back to games home?
+	
+	while (answer != "y"){
+		if (answer == "n"){
+			tick++;
+			if (tick < 6){
+				cout << "Oh... " << endl << "Would you like to play ultimate tic-tac-toe now? (y/n) ";
+			} else{
+				cout << "Please?..... (y/n)";
+			}
+		}
+		else {
+			cout << "Please enter in the format (y/n)!" << endl;
+		}
+		cin >> answer;
+	}
 	vector<char> t_0(9); vector<char> t_1(9); vector<char> t_2(9); 
 	vector<char> t_3(9); vector<char> t_4(9); vector<char> t_5(9); 
 	vector<char> t_6(9); vector<char> t_7(9); vector<char> t_8(9);
@@ -217,9 +237,34 @@ int main(){
 	int bigBoardIndex, smBoardIndex;
 	string Player1, Player2, temp;
 	cout << "Player 1, please enter a name: ";
-	cin >> Player1;
+	cin >> Player1;//cin >> Player1;
+	cout << "Is the name, " << Player1 << ", what you want? (y/n) ";
+	cin >> answer;
+	while (answer != "y"){
+		if (answer != "n"){
+			cout << "Please enter in the format (y/n)! " << endl;
+		} else {
+			cout << "Player 1, please enter a name: ";
+			cin >> Player1;
+			cout << "Is the name, " << Player1 << ", what you want? (y/n) ";
+		}
+		cin >> answer;
+	}
 	cout << "Player 2, please enter a name: ";
-	cin >> Player2;
+	cin >> Player2;//cin >> Player2;
+	cout << "Is the name, " << Player2 << ", what you want? (y/n) ";
+	cin >> answer;
+	while (answer != "y"){
+		if (answer != "n"){
+			cout << "Please enter in the format (y/n)! " << endl;
+		} else {
+			cout << "Player 2, please enter a name: ";
+			cin >> Player2;
+			cout << "Is the name, " << Player2 << ", what you want? (y/n) ";
+		}
+		cin >> answer;
+	}
+	cout << endl;
 	int counter = 0; // Keeps track of which player's turn it is.
 
 	// Begin with selecting indices and marking

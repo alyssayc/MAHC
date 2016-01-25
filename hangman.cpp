@@ -5,7 +5,7 @@
 #include <typeinfo>
 #include "hangman.h"
 #include <cctype> // used to check if the word/guess is a word
-
+#include <set>
 using namespace std;
 
 /*
@@ -145,7 +145,7 @@ enterWord:	cout << BOLDCYAN << "Enter your word to guess: " << RESET ;
 		}
 		cout << "Your word is : " << BOLDCYAN << phrase << RESET << "." << endl;
 		cout << "If that's correct, type 'ready' to clear the screen, then hand the game over to the guesser." << endl << "Otherwise, type anything else." << endl;
-		
+
 		/*
 		cout << "Your word is : " << BOLDCYAN << phrase << RESET << ". If that's correct, type 'ready' to clear the screen, then hand the game over to the guesser:  ";
 		cin >> tmp;
@@ -171,7 +171,7 @@ enterWord:	cout << BOLDCYAN << "Enter your word to guess: " << RESET ;
 
 		//Other Player Begins:
 		vector<char> guess, recentChanges, compare, wrongLetters;
-
+		set<char> used;
 		//instantiates guess to be "* * * * *.." to match the num of chars of the phrase
 		for (int i = 0; i < phrase.length() ; i++){
 			guess.push_back('*');
@@ -185,13 +185,32 @@ enterWord:	cout << BOLDCYAN << "Enter your word to guess: " << RESET ;
 		//Time to Guess!
 		//ask to enter letter or guess the word
 		char letter;
+		bool is_in;
 		int boo = 0; //if boo is 0, that means the guessed letter is not in the phrase --> increment strikes
 		//int isLetter = 0; //0 if the letter entered is not a char, if it is isLetter = 1
 		while (strikes < 8){
 
 			//while (isLetter == 0) {
-				cout << "Enter your letter: ";
+			// checks if the char is a letter
+guess:		do{
+				cout << "Enter your letter guess: ";
 				cin >> letter;
+				if (!isalpha(letter)){
+					cout << "Sorry, that is not an acceptable letter." << endl;
+				}
+			} while(!isalpha(letter));
+
+			// checks if the letter has been guessed already
+			is_in = used.find(letter) != used.end();
+			if (!is_in){
+				used.insert(letter);
+			} else{
+				cout << "You have already guessed that letter!" << endl;
+				goto guess;
+			}
+
+			//	cout << "Enter your letter: ";
+			//	cin >> letter;
 				//cout << typeid(letter).name() << endl;
 				/*if (typeid(letter).name() == 'c'){
 					isLetter = 1;

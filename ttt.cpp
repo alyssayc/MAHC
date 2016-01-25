@@ -4,21 +4,7 @@
 
 using namespace std;
 
-// THE BOARD SHOULD BE AN ARRAY OF SIZE 10 (including '\0')
-// IT SHOULD VISUALLY LOOK SOMETHING LIKE THIS 
-//  	0  1  2
-// 		3  4  5
-//		6  7  8
-
 bool gameOver(char* board){ // Returns whether the game is over or not.
-	// Should be a 3x3 board in this instance
-	/*
-	if (strlen(board) != 9){
-		cout << strlen(board) << endl;
-		cout << "Sorry, but I do believe that this is not a standard tic-tac-toe board size! " << endl;
-		return true; // should exit the loop
-	} */
-	// Check win conditions vertically and horizontally
 	for (int i = 0; i < 3; i++){
 		if ((board[3 * i] == board[3 * i + 1] && board[3 * i + 1] == board[3 * i + 2]) 
 			&& (board[3 * i] != *" " && board[3 * i + 1] != *" " && board[3 * i + 2] != *" ")){
@@ -85,9 +71,9 @@ int main(){
 	}
 
 	char spaces[10];
-	spaces[0] = *"0"; spaces[1] = *"1"; spaces[2] = *"2";
-	spaces[3] = *"3"; spaces[4] = *"4"; spaces[5] = *"5";
-	spaces[6] = *"6"; spaces[7] = *"7"; spaces[8] = *"8";
+	spaces[1] = *"1"; spaces[2] = *"2"; spaces[3] = *"3";
+	spaces[4] = *"4"; spaces[5] = *"5"; spaces[6] = *"6";
+	spaces[7] = *"7"; spaces[8] = *"8"; spaces[9] = *"9";
 	int index;
 	string Player1, Player2, temp;
 	cout << "Player 1, please enter a name: ";
@@ -104,7 +90,7 @@ int main(){
 		cout << "It is " << temp << "'s turn. " << endl;
 		cout << "Please choose the number corresponding to the square you would like to mark: ";
 		cin >> index;
-		if (!checkSpace(spaces, index)){
+		if (!checkSpace(spaces, index)){ // LOL i can just do a while loop...
 			do{
 				cout << "Sorry, that spot is occupied! Please choose another location: ";
 				cin >> index;

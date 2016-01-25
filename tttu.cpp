@@ -113,15 +113,15 @@ bool gameOverBigBoard(vector< vector<char> > board, vector<char> X_win, vector<c
 void displayBigBoard(vector< vector<char> > board, vector<char> X_win, vector<char> O_win){
 
 	vector<char> temp(9);
-	temp[0] = *"0";
-	temp[1] = *"1";
-	temp[2] = *"2";
-	temp[3] = *"3";
-	temp[4] = *"4";
-	temp[5] = *"5";
-	temp[6] = *"6";
-	temp[7] = *"7";
-	temp[8] = *"8";
+	temp[0] = *"1";
+	temp[1] = *"2";
+	temp[2] = *"3";
+	temp[3] = *"4";
+	temp[4] = *"5";
+	temp[5] = *"6";
+	temp[6] = *"7";
+	temp[7] = *"8";
+	temp[8] = *"9";
 	for (int i = 0; i < 9; i++){
 		if (board[i] == X_win){
 			temp[i] = *"X";
@@ -197,15 +197,15 @@ int main(){
 
 	// instantiate the values in the small vectors to *" "
 	for (int i = 0; i < 9; i++){
-		bigBoard[i][0] = *"0";
-		bigBoard[i][1] = *"1";
-		bigBoard[i][2] = *"2";
-		bigBoard[i][3] = *"3";
-		bigBoard[i][4] = *"4";
-		bigBoard[i][5] = *"5";
-		bigBoard[i][6] = *"6";
-		bigBoard[i][7] = *"7";
-		bigBoard[i][8] = *"8";
+		bigBoard[i][0] = *"1";
+		bigBoard[i][1] = *"2";
+		bigBoard[i][2] = *"3";
+		bigBoard[i][3] = *"4";
+		bigBoard[i][4] = *"5";
+		bigBoard[i][5] = *"6";
+		bigBoard[i][6] = *"7";
+		bigBoard[i][7] = *"8";
+		bigBoard[i][8] = *"9";
 		/*
 		for (int j = 0; j < 9; j++){
 			bigBoard[i][j] = *" ";

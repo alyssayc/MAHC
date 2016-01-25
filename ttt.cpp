@@ -51,7 +51,7 @@ bool checkSpace(char* board, int index){ // returns whether the space is open or
 
 int main(){
 	
-	cout << "Hello! Would you like to play tic-tac-toe? (y/n) ";
+beg:cout << "Hello! Would you like to play tic-tac-toe? (y/n) ";
 	string answer;
 	cin >> answer;
 	int tick = 0;
@@ -62,6 +62,8 @@ int main(){
 			tick++;
 			if (tick < 6){
 				cout << "Oh... " << endl << "Would you like to play tic-tac-toe now? (y/n) ";
+			} else{
+				cout << "Please?..... (y/n)";
 			}
 		}
 		else {
@@ -71,15 +73,39 @@ int main(){
 	}
 
 	char spaces[10];
-	spaces[1] = *"1"; spaces[2] = *"2"; spaces[3] = *"3";
-	spaces[4] = *"4"; spaces[5] = *"5"; spaces[6] = *"6";
-	spaces[7] = *"7"; spaces[8] = *"8"; spaces[9] = *"9";
+	spaces[0] = *"1"; spaces[1] = *"2"; spaces[2] = *"3";
+	spaces[3] = *"4"; spaces[4] = *"5"; spaces[5] = *"6";
+	spaces[6] = *"7"; spaces[7] = *"8"; spaces[8] = *"9";
 	int index;
 	string Player1, Player2, temp;
 	cout << "Player 1, please enter a name: ";
-	cin >> Player1;
+	cin >> Player1;//cin >> Player1;
+	cout << "Is the name, " << Player1 << ", what you want? (y/n) ";
+	cin >> answer;
+	while (answer != "y"){
+		if (answer != "n"){
+			cout << "Please enter in the format (y/n)! " << endl;
+		} else {
+			cout << "Player 1, please enter a name: ";
+			cin >> Player1;
+			cout << "Is the name, " << Player1 << ", what you want? (y/n) ";
+		}
+		cin >> answer;
+	}
 	cout << "Player 2, please enter a name: ";
-	cin >> Player2;
+	cin >> Player2;//cin >> Player2;
+	cout << "Is the name, " << Player2 << ", what you want? (y/n) ";
+	cin >> answer;
+	while (answer != "y"){
+		if (answer != "n"){
+			cout << "Please enter in the format (y/n)! " << endl;
+		} else {
+			cout << "Player 2, please enter a name: ";
+			cin >> Player2;
+			cout << "Is the name, " << Player2 << ", what you want? (y/n) ";
+		}
+		cin >> answer;
+	}
 	cout << endl;
 	// maybe add on stuff here like if same name, blah blah would you like a name? blah blah change name keep name blah blah
 	int counter = 0; // token to keep track of who's turn it is
@@ -90,13 +116,16 @@ int main(){
 		cout << "It is " << temp << "'s turn. " << endl;
 		cout << "Please choose the number corresponding to the square you would like to mark: ";
 		cin >> index;
-		if (!checkSpace(spaces, index)){ // LOL i can just do a while loop...
-			do{
-				cout << "Sorry, that spot is occupied! Please choose another location: ";
-				cin >> index;
-			} while (!checkSpace(spaces, index));
+num:	while (index > 9 || index < 1){
+			cout << "Please choose a number from 1-9 corresponding to the square you want to mark: ";
+			cin >> index;
+		}
+		while (!checkSpace(spaces, index - 1)){
+			cout << "Sorry, that spot is occupied! Please choose another location: ";
+			cin >> index;
+			goto num;
 		} 
-		spaces[index] = ((counter % 2) == 0) ? *"X" : *"O";
+		spaces[index - 1] = ((counter % 2) == 0) ? *"X" : *"O";
 		counter++; catsGame++;
 	} while (!gameOver(spaces) && catsGame < 9);
 	displayBoard(spaces);
@@ -104,5 +133,10 @@ int main(){
 		cout << "Congratulations! " << temp << " has won!" << endl;
 	} else{
 		cout << "It's a tie!" << endl;
+	}
+	cout << "Would you like to play again? (y/n)" <<endl << "only (y) will let you play again :^)" << endl;
+	cin >> answer;
+	if (answer == "y"){
+		goto beg;
 	}
 }

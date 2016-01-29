@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
+#include "ttt.h"
 using namespace std;
 
 /* Something like this....
@@ -61,7 +61,6 @@ _____|_____|_____
      |     |      
 
 */
-
 
 bool gameOverSmallBoard(vector<char> board){ // Returns whether the game is over or not.
 	for (int i = 0; i < 3; i++){
@@ -148,7 +147,7 @@ void displayBigBoard(vector< vector<char> > board, vector<char> X_win, vector<ch
 
 void displaySmallBoard(vector<char> board, int index){ // Change this to look better and because this is a template.... 
 	// First display the first row...
-	cout << "Displaying small board #" << index << endl;
+	cout << "Displaying small board #" << index + 1 << endl;
 	cout << "     |     |     " << endl;
 	cout << "  " << board[0] << "  |  " << board[1] << "  |  " << board[2] << endl;
 
@@ -175,34 +174,18 @@ bool checkSpaceUltimate(vector<char> board, int index){ // returns whether the s
 	}
 }
 
+void playAgain2();
 
 int playTTTU(){
-	// instantiate the small tic tac toe boards;
-beg:cout << "Hello! Would you like to play ultimate tic-tac-toe? (y/n) ";
-	string answer;
-	cin >> answer;
-	int tick = 0;
-	// can implement a series of dialogue, an option to go back to games home?
-	
-	while (answer != "y"){
-		if (answer == "n"){
-			tick++;
-			if (tick < 6){
-				cout << "Oh... " << endl << "Would you like to play ultimate tic-tac-toe now? (y/n) ";
-			} else{
-				cout << "Please?..... (y/n)";
-			}
-		}
-		else {
-			cout << "Please enter in the format (y/n)!" << endl;
-		}
-		cin >> answer;
-	}
+	string game = "ultimate tic-tac-toe";
+beg:welcomeDialogue(game);
+
 	vector<char> t_0(9); vector<char> t_1(9); vector<char> t_2(9); 
 	vector<char> t_3(9); vector<char> t_4(9); vector<char> t_5(9); 
 	vector<char> t_6(9); vector<char> t_7(9); vector<char> t_8(9);
 	// Create small tic tac toe boards for when any of them are won with X or O
 	vector<char> X_won(9); vector<char> O_won(9);
+	
 	for (int i = 0; i < 9; i++){
 		O_won[i] = *"o";
 	}
@@ -236,35 +219,7 @@ beg:cout << "Hello! Would you like to play ultimate tic-tac-toe? (y/n) ";
 	//Initialize values, enter names
 	int bigBoardIndex, smBoardIndex;
 	string Player1, Player2, temp;
-	cout << "Player 1, please enter a name: ";
-	cin >> Player1;//cin >> Player1;
-	cout << "Is the name, " << Player1 << ", what you want? (y/n) ";
-	cin >> answer;
-	while (answer != "y"){
-		if (answer != "n"){
-			cout << "Please enter in the format (y/n)! " << endl;
-		} else {
-			cout << "Player 1, please enter a name: ";
-			cin >> Player1;
-			cout << "Is the name, " << Player1 << ", what you want? (y/n) ";
-		}
-		cin >> answer;
-	}
-	cout << "Player 2, please enter a name: ";
-	cin >> Player2;//cin >> Player2;
-	cout << "Is the name, " << Player2 << ", what you want? (y/n) ";
-	cin >> answer;
-	while (answer != "y"){
-		if (answer != "n"){
-			cout << "Please enter in the format (y/n)! " << endl;
-		} else {
-			cout << "Player 2, please enter a name: ";
-			cin >> Player2;
-			cout << "Is the name, " << Player2 << ", what you want? (y/n) ";
-		}
-		cin >> answer;
-	}
-	cout << endl;
+	getNames(Player1, Player2);
 	int counter = 0; // Keeps track of which player's turn it is.
 
 	// Begin with selecting indices and marking
@@ -275,10 +230,12 @@ beg:cout << "Hello! Would you like to play ultimate tic-tac-toe? (y/n) ";
 	// DISPLAY
 	cout << "Small Board #";
 	cin >> bigBoardIndex;
+	bigBoardIndex--;
 	// Something about are you sure, you can go back, blah blah
 	displaySmallBoard(bigBoard[bigBoardIndex], bigBoardIndex);
-	cout << endl << "Please choose where in Small Board #" << bigBoardIndex << " to mark." << endl;
+	cout << endl << "Please choose where in Small Board #" << bigBoardIndex + 1 << " to mark." << endl;
 	cin >> smBoardIndex;
+	smBoardIndex--;
 	bigBoard[bigBoardIndex][smBoardIndex] = *"X";
 	bigBoardIndex = smBoardIndex;
 	counter++;
@@ -292,19 +249,22 @@ beg:cout << "Hello! Would you like to play ultimate tic-tac-toe? (y/n) ";
 		while (gameOverSmallBoard(bigBoard[bigBoardIndex], bigBoardIndex)){
 		*/
 		while (bigBoard[bigBoardIndex] == X_won || bigBoard[bigBoardIndex] == O_won){
-			cout << "Small Board #" << bigBoardIndex << " has been won, please choose another small board." << endl;
+			cout << "Small Board #" << bigBoardIndex + 1 << " has been won, please choose another small board." << endl;
 			cin >> bigBoardIndex;
+			bigBoardIndex--;
 		}
 		displaySmallBoard(bigBoard[bigBoardIndex], bigBoardIndex);
 		
 		//cout << "You are currently viewing Small Board #" << bigBoardIndex << endl;
 		//cout << "Would you like to view another small board? (y/n)" ;
 		//DISPLAY
-		cout << "Please choose where in Small Board #" << bigBoardIndex << " to mark." <<endl;
+		cout << "Please choose where in Small Board #" << bigBoardIndex + 1 << " to mark." <<endl;
 		cin >> smBoardIndex;
+		smBoardIndex--;
 		while (!checkSpaceUltimate(bigBoard[bigBoardIndex], smBoardIndex)){
 			cout << "Sorry, that spot is occupied! Please choose another location: ";
 			cin >> smBoardIndex;
+			smBoardIndex--;
 		}
 		bigBoard[bigBoardIndex][smBoardIndex] = ((counter % 2) == 0) ? *"X" : *"O";
 		if (gameOverSmallBoard(bigBoard[bigBoardIndex])){
@@ -318,7 +278,17 @@ beg:cout << "Hello! Would you like to play ultimate tic-tac-toe? (y/n) ";
 	displayBigBoard(bigBoard, X_won, O_won);
 	cout << "Congratulations! " << temp << " has won!" << endl;
 
+	playAgain2();
 	return 0;
+}
+
+void playAgain2(){
+	cout << "Would you like to play again? (y/n)" << endl << "only (y) will let you play again :^)" << endl;
+	string answer;
+	cin >> answer;
+	if (answer == "y"){
+		playTTTU();
+	}
 }
 
 

@@ -6,14 +6,8 @@
 
 using namespace std;
 
-void initBoard(char* board){
-	board[0] = *"1"; board[1] = *"2"; board[2] = *"3";
-	board[3] = *"4"; board[4] = *"5"; board[5] = *"6";
-	board[6] = *"7"; board[7] = *"8"; board[8] = *"9";
-}
-
-void welcomeDialogue(){
-	cout << "Hello! Would you like to play tic-tac-toe? (y/n) ";
+void welcomeDialogue(string gameName){
+	cout << "Hello! Would you like to play " << gameName << "? (y/n) ";
 	string answer;
 	cin >> answer;
 	int tick = 0;
@@ -22,15 +16,50 @@ void welcomeDialogue(){
 		if (answer == "n"){
 			tick++;
 			if (tick < 6){
-				cout << "Oh... " << endl << "Would you like to play tic-tac-toe now? (y/n) ";
-			} else{
+				cout << "Oh... " << endl << "Would you like to play " << gameName << " now? (y/n) ";
+			} else if (tick < 10){
 				cout << "Please?..... (y/n)";
+			} else{
+				cout << "Good choice! Let's start " << gameName << endl;
+				break;
 			}
 		}
 		else {
 			cout << "Please enter in the format (y/n)!" << endl;
 		}
 		cin >> answer;
+	}
+}
+
+void initBoard(char* board){
+	board[0] = *"1"; board[1] = *"2"; board[2] = *"3";
+	board[3] = *"4"; board[4] = *"5"; board[5] = *"6";
+	board[6] = *"7"; board[7] = *"8"; board[8] = *"9";
+}
+
+void getNames(string &P1, string &P2){
+	string player, resp;// holds the string for what player
+	// loop through the players
+	for (int iterator = 1; iterator < 3; iterator++) {
+    	cout << "Player " << iterator << ", please enter a name: ";
+    	cin >> player;
+    	cout << "Is the name, " << player << ", what you want? (y/n) ";
+    	cin >> resp;
+    	while (resp != "y"){
+			if (resp != "n"){
+				cout << "Please enter in the format (y/n)! " << endl;
+			} else {	
+				cout << "Player " << iterator << ", please enter a name: ";
+				cin >> player;
+				cout << "Is the name, " << player << ", what you want? (y/n) ";
+			}
+			cin >> resp;
+		}
+		if (iterator == 1){
+			P1 = player;
+		} else if (iterator == 2){
+			P2 = player;
+		}
 	}
 }
 
@@ -79,38 +108,6 @@ bool checkSpace(char* board, int index){ // returns whether the space is open or
 	}
 }
 
-bool isItDigit(int digit){
-	return (digit == 1 || digit == 2 || digit == 3
-		|| digit == 4 || digit == 5 || digit == 6
-		|| digit == 7 || digit == 8 || digit == 9);
-}
-
-void getNames(string &P1, string &P2){
-	string player, resp;// holds the string for what player
-	// loop through the players
-	for (int iterator = 1; iterator < 3; iterator++) {
-    	cout << "Player " << iterator << ", please enter a name: ";
-    	cin >> player;
-    	cout << "Is the name, " << player << ", what you want? (y/n) ";
-    	cin >> resp;
-    	while (resp != "y"){
-			if (resp != "n"){
-				cout << "Please enter in the format (y/n)! " << endl;
-			} else {	
-				cout << "Player " << iterator << ", please enter a name: ";
-				cin >> player;
-				cout << "Is the name, " << player << ", what you want? (y/n) ";
-			}
-			cin >> resp;
-		}
-		if (iterator == 1){
-			P1 = player;
-		} else if (iterator == 2){
-			P2 = player;
-		}
-	}
-}
-
 void fillBoard(string P1, string P2, char* board){
 	int counter = 0; // token to keep track of who's turn it is
 	int catsGame = 0;
@@ -147,7 +144,8 @@ num:	cin >> index;
 void playAgain();
 
 int playTTT(){
-	welcomeDialogue();
+	string game = "tic-tac-toe";
+	welcomeDialogue(game);
 	string Player1, Player2;
 	char spaces[10];
 	initBoard(spaces);

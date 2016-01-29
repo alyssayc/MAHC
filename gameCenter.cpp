@@ -25,14 +25,16 @@ int main() {
 	switch(game){
 
 		case 1:
-			cout << "You chose to play Tic Tac Toe! Ready to play? (y/n): ";
+			cout << "You chose to play Tic Tac Toe! Is that what you want to play? (y/n): ";
 			cin >> readyToPlay;
 			if (readyToPlay == 'y'){
+				cout << BBLACK << BOLDRED;
 				clearScreen();
 				playTTT();
 				cout << "Would you like to return to the game center? (y/n) ";
 				cin >> answer;
 				if (answer == 'y'){
+					cout << RESET;
 					clearScreen();
 					goto choose;
 				}
@@ -40,14 +42,16 @@ int main() {
 			else {clearScreen(); goto choose;}
 			break;
 		case 2:
-			cout << "You chose to play Ultimate Tic Tac Toe! Ready to play? (y/n): ";
+			cout << "You chose to play Ultimate Tic Tac Toe! Is that what you want to play? (y/n): ";
 			cin >> readyToPlay;
 			if (readyToPlay == 'y'){
+				cout << BBLACK << BOLDBLUE;
 				clearScreen();
 				playTTTU();
 				cout << "Would you like to return to the game center? (y/n) ";
 				cin >> answer;
 				if (answer == 'y'){
+					cout << RESET;
 					clearScreen();
 					goto choose;
 				} 
@@ -55,14 +59,16 @@ int main() {
 			else {clearScreen(); goto choose;}
 			break;
 		case 3:
-			cout << "You chose to play Hangman! Ready to play? (y/n): ";
+			cout << "You chose to play Hangman! Is that what you want to play? (y/n): ";
 			cin >> readyToPlay;
 			if (readyToPlay == 'y'){
+				cout << BOLDMAGENTA;
 				clearScreen();
 				playHangman();
 				cout << "Would you like to return to the game center? (y/n) ";
 				cin >> answer;
 				if (answer == 'y'){
+					cout << RESET;
 					clearScreen();
 					goto choose;
 				}
@@ -70,7 +76,7 @@ int main() {
 			else {clearScreen(); goto choose;}
 			break;
 		case 4:
-			cout << "You chose to play Connect Four! Ready to play? (y/n): ";
+			cout << "You chose to play Connect Four! Is that what you want to play? (y/n): ";
 			cin >> readyToPlay;
 			if (readyToPlay == 'y'){
 				clearScreen();

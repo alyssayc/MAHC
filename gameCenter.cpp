@@ -20,7 +20,7 @@ int main() {
     char readyToPlay, answer;
 	cout << endl << BOLDCYAN << "Which game do you want to play today? Enter a number from 1-4: ";
     cin >> game;
-    cout << endl;
+    cout << endl; 
 
 	switch(game){
 

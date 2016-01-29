@@ -1,8 +1,38 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cctype>
+#include "hangman.h"
 
 using namespace std;
+
+void initBoard(char* board){
+	board[0] = *"1"; board[1] = *"2"; board[2] = *"3";
+	board[3] = *"4"; board[4] = *"5"; board[5] = *"6";
+	board[6] = *"7"; board[7] = *"8"; board[8] = *"9";
+}
+
+void welcomeDialogue(){
+	cout << "Hello! Would you like to play tic-tac-toe? (y/n) ";
+	string answer;
+	cin >> answer;
+	int tick = 0;
+	
+	while (answer != "y"){
+		if (answer == "n"){
+			tick++;
+			if (tick < 6){
+				cout << "Oh... " << endl << "Would you like to play tic-tac-toe now? (y/n) ";
+			} else{
+				cout << "Please?..... (y/n)";
+			}
+		}
+		else {
+			cout << "Please enter in the format (y/n)!" << endl;
+		}
+		cin >> answer;
+	}
+}
 
 bool gameOver(char* board){ // Returns whether the game is over or not.
 	for (int i = 0; i < 3; i++){
@@ -49,95 +79,91 @@ bool checkSpace(char* board, int index){ // returns whether the space is open or
 	}
 }
 
-int playTTT(){
-	
-beg:cout << "Hello! Would you like to play tic-tac-toe? (y/n) ";
-	string answer;
-	cin >> answer;
-	int tick = 0;
-	// can implement a series of dialogue, an option to go back to games home?
-	
-	while (answer != "y"){
-		if (answer == "n"){
-			tick++;
-			if (tick < 6){
-				cout << "Oh... " << endl << "Would you like to play tic-tac-toe now? (y/n) ";
-			} else{
-				cout << "Please?..... (y/n)";
-			}
-		}
-		else {
-			cout << "Please enter in the format (y/n)!" << endl;
-		}
-		cin >> answer;
-	}
+bool isItDigit(int digit){
+	return (digit == 1 || digit == 2 || digit == 3
+		|| digit == 4 || digit == 5 || digit == 6
+		|| digit == 7 || digit == 8 || digit == 9);
+}
 
-	char spaces[10];
-	spaces[0] = *"1"; spaces[1] = *"2"; spaces[2] = *"3";
-	spaces[3] = *"4"; spaces[4] = *"5"; spaces[5] = *"6";
-	spaces[6] = *"7"; spaces[7] = *"8"; spaces[8] = *"9";
-	int index;
-	string Player1, Player2, temp;
-	cout << "Player 1, please enter a name: ";
-	cin >> Player1;//cin >> Player1;
-	cout << "Is the name, " << Player1 << ", what you want? (y/n) ";
-	cin >> answer;
-	while (answer != "y"){
-		if (answer != "n"){
-			cout << "Please enter in the format (y/n)! " << endl;
-		} else {
-			cout << "Player 1, please enter a name: ";
-			cin >> Player1;
-			cout << "Is the name, " << Player1 << ", what you want? (y/n) ";
+void getNames(string &P1, string &P2){
+	string player, resp;// holds the string for what player
+	// loop through the players
+	for (int iterator = 1; iterator < 3; iterator++) {
+    	cout << "Player " << iterator << ", please enter a name: ";
+    	cin >> player;
+    	cout << "Is the name, " << player << ", what you want? (y/n) ";
+    	cin >> resp;
+    	while (resp != "y"){
+			if (resp != "n"){
+				cout << "Please enter in the format (y/n)! " << endl;
+			} else {	
+				cout << "Player " << iterator << ", please enter a name: ";
+				cin >> player;
+				cout << "Is the name, " << player << ", what you want? (y/n) ";
+			}
+			cin >> resp;
 		}
-		cin >> answer;
-	}
-	cout << "Player 2, please enter a name: ";
-	cin >> Player2;//cin >> Player2;
-	cout << "Is the name, " << Player2 << ", what you want? (y/n) ";
-	cin >> answer;
-	while (answer != "y"){
-		if (answer != "n"){
-			cout << "Please enter in the format (y/n)! " << endl;
-		} else {
-			cout << "Player 2, please enter a name: ";
-			cin >> Player2;
-			cout << "Is the name, " << Player2 << ", what you want? (y/n) ";
+		if (iterator == 1){
+			P1 = player;
+		} else if (iterator == 2){
+			P2 = player;
 		}
-		cin >> answer;
 	}
-	cout << endl;
-	// maybe add on stuff here like if same name, blah blah would you like a name? blah blah change name keep name blah blah
+}
+
+void fillBoard(string P1, string P2, char* board){
 	int counter = 0; // token to keep track of who's turn it is
 	int catsGame = 0;
+	int index;
+	string temp;
 	do{
-		displayTTT(spaces);
-		temp = ((counter % 2) == 0) ? Player1 : Player2;
+		clearScreen();
+		displayTTT(board);
+		temp = ((counter % 2) == 0) ? P1 : P2;
 		cout << "It is " << temp << "'s turn. " << endl;
 		cout << "Please choose the number corresponding to the square you would like to mark: ";
-		cin >> index;
-num:	while (index > 9 || index < 1){
+num:	cin >> index;
+		while (index > 9 || index < 1){
 			cout << "Please choose a number from 1-9 corresponding to the square you want to mark: ";
 			cin >> index;
 		}
-		while (!checkSpace(spaces, index - 1)){
+		while (!checkSpace(board, index - 1)){
 			cout << "Sorry, that spot is occupied! Please choose another location: ";
-			cin >> index;
 			goto num;
 		} 
-		spaces[index - 1] = ((counter % 2) == 0) ? *"X" : *"O";
+		board[index - 1] = ((counter % 2) == 0) ? *"X" : *"O";
 		counter++; catsGame++;
-	} while (!gameOver(spaces) && catsGame < 9);
-	displayTTT(spaces);
-	if (gameOver(spaces)){
+	} while (!gameOver(board) && catsGame < 9);
+
+	clearScreen();
+	displayTTT(board);
+	if (gameOver(board)){
 		cout << "Congratulations! " << temp << " has won!" << endl;
 	} else{
 		cout << "It's a tie!" << endl;
 	}
-	cout << "Would you like to play again? (y/n)" <<endl << "only (y) will let you play again :^)" << endl;
-	cin >> answer;
-	if (answer == "y"){
-		goto beg;
-	}
+}
+
+void playAgain();
+
+int playTTT(){
+	welcomeDialogue();
+	string Player1, Player2;
+	char spaces[10];
+	initBoard(spaces);
+	getNames(Player1, Player2);
+	fillBoard(Player1, Player2, spaces);
+	playAgain();
 	return 0;
 }
+
+void playAgain(){
+	cout << "Would you like to play again? (y/n)" << endl << "only (y) will let you play again :^)" << endl;
+	string answer;
+	cin >> answer;
+	if (answer == "y"){
+		clearScreen();
+		playTTT();
+	}
+}
+

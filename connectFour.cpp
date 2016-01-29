@@ -47,33 +47,67 @@ void displayBoard(vector< vector<int> >& board){
 	
 }
 
-void updateBoard(vector< vector<int> >& board, char input, int player){
+int updateBoard(vector< vector<int> >& board, char input, int player){
 	//TAKES A INPUT OF WHAT COLUMN TO PLACE THE CHIP AND UPDATES THE VECTOR
+	int tmp = 0;
 	switch(input){
 
 			case 'a':
+				if (board[0].size() == 6){
+					tmp = 1;
+					break;
+				}
 				board[0].push_back(player);
 				break;
 			case 'b':
+				if (board[1].size() == 6){
+					tmp = 1;
+					break;
+				}
 				board[1].push_back(player);
 				break;
 			case 'c':
+				if (board[2].size() == 6){
+					tmp = 1;
+					break;
+				}
 				board[2].push_back(player);
 				break;
 			case 'd':
+				if (board[3].size() == 6){
+					tmp = 1;
+					break;
+				}
 				board[3].push_back(player);
 				break;
 			case 'e':
+				if (board[4].size() == 6){
+					tmp = 1;
+					break;
+				}
 				board[4].push_back(player);
 				break;
 			case 'f':
+				if (board[5].size() == 6){
+					tmp = 1;
+					break;
+				}
 				board[5].push_back(player);
 				break;
 			case 'g':
+				if (board[6].size() == 6){
+					tmp = 1;
+					break;
+				}
 				board[6].push_back(player);
 
 		}
 
+	if (tmp == 1){
+		cout << "You can't add another chip here. Try again." << endl;
+		return 1;
+	}
+	return 0;
 }
 
 int checkVertical(vector< vector<int> >& board, char input, int player){
@@ -106,7 +140,7 @@ int checkVertical(vector< vector<int> >& board, char input, int player){
 
 		}
 
-	cout << test[test.size()-1] << test[test.size()-2] << test[test.size()-3] << test[test.size()-4] << "Player" << player << endl;
+	//cout << "1. " << test[test.size()-1] << " 2. " << test[test.size()-2] << " 3. " << test[test.size()-3] << " 4. " << test[test.size()-4] << "Player" << player << endl;
 	if ((test[test.size()-1] == player) && (test[test.size()-2] == player) && (test[test.size()-3] == player) && (test[test.size()-4] == player)){
 		if (player == 1) {
 			cout << BRED << "Player " << player << " wins!" << RESET << endl;
@@ -181,71 +215,156 @@ int checkHorizontal(vector< vector<int> >& board, char input, int player){
 int checkDiagonal(vector< vector<int> >& board, char input, int player){
 
 	vector<int> test;
-	int col;
+	int col, inpCol, index, count=0;
 	player = (player == 1) ? 2 : 1;
-	cout << "Checking diagonal" << endl;
+	//cout << "Checking diagonal" << endl;
 	switch(input){
 
 			case 'a':
 				test = board[0];
-				col = 0;
+				inpCol = 0;
 				break;
 			case 'b':
 				test = board[1];
-				col = 1;
+				inpCol = 1;
 				break;
 			case 'c':
 				test = board[2];
-				col = 2;
+				inpCol = 2;
 				break;
 			case 'd':
 				test = board[3];
-				col = 3;
+				inpCol = 3;
 				break;
 			case 'e':
 				test = board[4];
-				col = 4;
+				inpCol = 4;
 				break;
 			case 'f':
 				test = board[5];
-				col = 5;
+				inpCol = 5;
 				break;
 			case 'g':
 				test = board[6];
-				col = 6;
+				inpCol = 6;
 
 	}
 
-	//test left diagonal 
-	// input == player 
-	int proceed = 0;
-	cout << "Printing test.size(): " << test.size() << endl;
-
-	for (int i = 1; i < 4; i++){
-		cout << "Printing board[col-i].size(): " << board[col-i].size() << endl;
-		if (board[col-i].size() >= test.size()-i){
-			proceed ++;
+	//test left diagonal /
+	col = inpCol-1;
+	index = test.size()-1;
+	//cout << "This is col: " << col << endl;
+	//cout << "This is index: " << index << endl;
+	while ((col >= 0) && (board[col].size()>index-1)){
+		//cout << "Passed first check. Printing board[col].size(): " << board[col].size() - 1 << endl;
+		if (board[col][index-1] == player){
+			//cout << "Match!" << endl;
+			count ++;
+			col --;
+			index --;
+			if (count == 3) { // if there is a diagonal
+				if (player == 1) {
+						cout << BRED << "Player " << player << " wins!" << RESET << endl;
+				}
+				else {
+						cout << BYELLOW << "Player " << player << " wins!" << RESET << endl;
+				}
+				return player;
+			}
+		}
+		else {
+			//cout << "No Match!" << endl;
+			break;
 		}
 	}
-	cout << "Proceed: " << proceed << endl;
-	//if all three vectors match the size req
-	if (proceed==3){
-		if ((board[col-1][test.size()-2] == player) && (board[col-2][test.size()-3]) && (board[col-3][test.size()-4])){
-			if (player == 1) {
-				cout << BRED << "Player " << player << " wins!" << RESET << endl;
+
+	col = inpCol+1;
+	index = test.size()-1;
+	while ((col < 7) && (board[col].size()>index)){
+		//cout << "Passed first check. Printing board[col].size(): " << board[col].size() - 1 << endl;
+		if (board[col][index+1] == player){
+			//cout << "Match!" << endl;
+			count ++;
+			col ++;
+			index ++;
+			if (count == 3) { // if there is a diagonal
+				if (player == 1) {
+						cout << BRED << "Player " << player << " wins!" << RESET << endl;
+				}
+				else {
+						cout << BYELLOW << "Player " << player << " wins!" << RESET << endl;
+				}
+				return player;
 			}
-			else{
-				cout << BYELLOW << "Player " << player << " wins!" << RESET << endl;
-			}
-			return player;
+		}
+		else {
+			//cout << "No Match!" << endl;
+			break;
 		}
 	}
+
+	//check right diagonal
+	col = inpCol-1;
+	index = test.size()-1;
+	//cout << "This is col: " << col << endl;
+	//cout << "This is index: " << index << endl;
+	while ((col >= 0) && (board[col].size()>index+1)){
+		//cout << "Passed first check. Printing board[col].size(): " << board[col].size() - 1 << endl;
+		if (board[col][index+1] == player){
+			//cout << "Match!" << endl;
+			count ++;
+			col --;
+			index ++;
+			if (count == 3) { // if there is a diagonal
+				if (player == 1) {
+						cout << BRED << "Player " << player << " wins!" << RESET << endl;
+				}
+				else {
+						cout << BYELLOW << "Player " << player << " wins!" << RESET << endl;
+				}
+				return player;
+			}
+		}
+		else {
+			//cout << "No Match!" << endl;
+			break;
+		}
+	}
+	//cout << "TEST" << endl;
+	col = inpCol+1;
+	index = test.size()-1;
+	//cout << "Col: " << col << " Index: " << index << endl;
+	while ((col < 7) && (board[col].size()>index-1 && (index-1)>=0)){
+		//cout << "Passed first check. Printing board[col].size(): " << board[col].size()<< endl;
+		if (board[col][index-1] == player){
+			//cout << "Match!" << endl;
+			count ++;
+			col ++;
+			index --;
+			if (count == 3) { // if there is a diagonal
+				if (player == 1) {
+						cout << BRED << "Player " << player << " wins!" << RESET << endl;
+				}
+				else {
+						cout << BYELLOW << "Player " << player << " wins!" << RESET << endl;
+				}
+				return player;
+			}
+		}
+		else {
+			//cout << "No Match!" << endl;
+			break;
+		}
+	}
+
 	return 0;
+
 }
+
 
 void clearScreen2(){
 
-    cout << string( 40, '\n' );
+    cout << string( 45, '\n' );
 }
 
 int playConnectFour(){
@@ -281,12 +400,14 @@ int playConnectFour(){
 	//if no one has won yet, win = 0; if player 1 won, win = 1; player 2 won, win = 2
 	
 	//MOVE
-	while (winH == 0){
+	choose: while (winH == 0 && winV == 0 && winD == 0){
 	cout << "Player " << player << " (" << color << "): " ;
 	cout << "Where do you want to move? (Enter a character from a - g): ";
 	cin >> input;
 	clearScreen2();
-	updateBoard(columns, input, player);
+	if (updateBoard(columns, input, player) == 1){
+		goto choose;
+	}
 	displayBoard(columns);
 	cout << endl;
 	player = (player == 1) ? 2 : 1; // if player is currently 1, then set player to 2 and vis versa

@@ -134,6 +134,8 @@ int playHangman() {
 	//Player enters word for other player to guess
 	//Once they confirm their word, player hands over to other player to guess
 	while (playAgain == 0){
+		clearScreen();
+		strikes=0;
 		cout << "Hello! Let's play hangman!" << endl;
 
 enterWord:	cout << BOLDCYAN << "Enter your word to guess: " << RESET ;

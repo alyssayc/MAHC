@@ -14,50 +14,7 @@ _____|_____|_____ | _____|_____|_____ | _____|_____|_____
      |     |      |      |     |      |      |     |     
      |     |      |      |     |      |      |     |     
 ---------------------------------------------------------
-     |     |      |      |     |      |    __________
-     |     |      |      |     |      |   /          \
-_____|_____|_____ | _____|_____|_____ |  /            \ 
-     |     |      |      |     |      |  |            | 
-     |     |      |      |     |      |  |            | 
-_____|_____|_____ | _____|_____|_____ |  |            |
-     |     |      |      |     |      |  \            /
-     |     |      |      |     |      |   \__________/
-     |     |      |      |     |      | 
----------------------------------------------------------
-     |     |      |      |     |      |     \       /
-     |     |      |      |     |      |      \     /
-_____|_____|_____ | _____|_____|_____ |       \   /
-     |     |      |      |     |      |        \ / 
-     |     |      |      |     |      |         x 
-_____|_____|_____ | _____|_____|_____ |        / \
-     |     |      |      |     |      |       /   \
-     |     |      |      |     |      |      /     \
-     |     |      |      |     |      |     /       \
 
-Okay instead of printing the entire board
-Ill print the small version of big board
-And then Ill print whatever small board they are marking in
-and I will give them an image of any small board if they want.
-
-     |     |      
-     |     |     
-_____|_____|_____
-     |     |     
-     |     |     
-_____|_____|_____
-     |     |      
-     |     |      
-     |     |      
-
-     |     |      
-     |     |     
-_____|_____|_____
-     |     |     
-     |     |     
-_____|_____|_____
-     |     |      
-     |     |      
-     |     |      
 
 */
 
@@ -225,6 +182,51 @@ void displaySmallBoard(vector<char> board, int index){ // Change this to look be
 	// Can implement color maybe....
 }
 
+void displayBoard(vector< vector<char> > board){
+	cout << "Displaying the board." << endl;
+	cout << "     |     |      |      |     |      |      |     |" << endl;
+	cout << "  " << board[0][0] << "  |  " << board[0][1] << "  |  " << board[0][2] << "   |   " << board[1][0] << "  |  " << board[1][1] << "  |  " << board[1][2] << "   |   " << board[2][0] << "  |  " << board[2][1] << "  |  " << board[2][2] << endl;
+	cout << "_____|_____|_____ | _____|_____|_____ | _____|_____|_____" << endl;
+	cout << "     |     |      |      |     |      |      |     |" << endl;
+	cout << "  " << board[0][3] << "  |  " << board[0][4] << "  |  " << board[0][5] << "   |   " << board[1][3] << "  |  " << board[1][4] << "  |  " << board[1][5] << "   |   " << board[2][3] << "  |  " << board[2][4] << "  |  " << board[2][5] << endl;
+	cout << "_____|_____|_____ | _____|_____|_____ | _____|_____|_____" << endl;
+	cout << "     |     |      |      |     |      |      |     |" << endl;	
+	cout << "  " << board[0][6] << "  |  " << board[0][7] << "  |  " << board[0][8] << "   |   " << board[1][6] << "  |  " << board[1][7] << "  |  " << board[1][8] << "   |   " << board[2][6] << "  |  " << board[2][7] << "  |  " << board[2][8] << endl;
+	cout << "     |     |      |      |     |      |      |     |     " << endl;
+	cout << "---------------------------------------------------------" << endl;
+	cout << "     |     |      |      |     |      |      |     |" << endl;
+	cout << "  " << board[3][0] << "  |  " << board[3][1] << "  |  " << board[3][2] << "   |   " << board[4][0] << "  |  " << board[4][1] << "  |  " << board[4][2] << "   |   " << board[5][0] << "  |  " << board[5][1] << "  |  " << board[5][2] << endl;
+	cout << "_____|_____|_____ | _____|_____|_____ | _____|_____|_____" << endl;
+	cout << "     |     |      |      |     |      |      |     |" << endl;
+	cout << "  " << board[3][3] << "  |  " << board[3][4] << "  |  " << board[3][5] << "   |   " << board[4][3] << "  |  " << board[4][4] << "  |  " << board[4][5] << "   |   " << board[5][3] << "  |  " << board[5][4] << "  |  " << board[5][5] << endl;
+	cout << "_____|_____|_____ | _____|_____|_____ | _____|_____|_____" << endl;
+	cout << "     |     |      |      |     |      |      |     |" << endl;	
+	cout << "  " << board[3][6] << "  |  " << board[3][7] << "  |  " << board[3][8] << "   |   " << board[4][6] << "  |  " << board[4][7] << "  |  " << board[4][8] << "   |   " << board[5][6] << "  |  " << board[5][7] << "  |  " << board[5][8] << endl;
+	cout << "     |     |      |      |     |      |      |     |     " << endl;
+	cout << "---------------------------------------------------------" << endl;
+	cout << "     |     |      |      |     |      |      |     |" << endl;
+	cout << "  " << board[6][0] << "  |  " << board[6][1] << "  |  " << board[6][2] << "   |   " << board[7][0] << "  |  " << board[7][1] << "  |  " << board[7][2] << "   |   " << board[8][0] << "  |  " << board[8][1] << "  |  " << board[8][2] << endl;
+	cout << "_____|_____|_____ | _____|_____|_____ | _____|_____|_____" << endl;
+	cout << "     |     |      |      |     |      |      |     |" << endl;
+	cout << "  " << board[6][3] << "  |  " << board[6][4] << "  |  " << board[6][5] << "   |   " << board[7][3] << "  |  " << board[7][4] << "  |  " << board[7][5] << "   |   " << board[8][3] << "  |  " << board[8][4] << "  |  " << board[8][5] << endl;
+	cout << "_____|_____|_____ | _____|_____|_____ | _____|_____|_____" << endl;
+	cout << "     |     |      |      |     |      |      |     |" << endl;	
+	cout << "  " << board[6][6] << "  |  " << board[6][7] << "  |  " << board[6][8] << "   |   " << board[7][6] << "  |  " << board[7][7] << "  |  " << board[7][8] << "   |   " << board[8][6] << "  |  " << board[8][7] << "  |  " << board[8][8] << endl;
+	cout << "     |     |      |      |     |      |      |     |     " << endl << endl;
+/*
+     |     |      |      |     |      |      |     |     
+     |     |      |      |     |      |      |     |     
+_____|_____|_____ | _____|_____|_____ | _____|_____|_____
+     |     |      |      |     |      |      |     |     
+     |     |      |      |     |      |      |     |     
+_____|_____|_____ | _____|_____|_____ | _____|_____|_____
+     |     |      |      |     |      |      |     |     
+     |     |      |      |     |      |      |     |     
+     |     |      |      |     |      |      |     |     
+---------------------------------------------------------
+*/
+}
+
 bool checkSpaceUltimate(vector<char> board, int index){ // returns whether the space is open or not
 	if ((board[index] == *"X") || (board[index] == *"O")){
 		return false;
@@ -246,6 +248,7 @@ void fillBoard(string P1, string P2, vector< vector<char> > board, vector<char> 
 	cin >> bigBoardIndex;
 	bigBoardIndex--;
 	// Something about are you sure, you can go back, blah blah
+	displayBoard(board);
 	displaySmallBoard(board[bigBoardIndex], bigBoardIndex);
 	cout << endl << "Please choose where in Small Board #" << bigBoardIndex + 1 << " to mark." << endl;
 	cin >> smBoardIndex;
@@ -254,7 +257,8 @@ void fillBoard(string P1, string P2, vector< vector<char> > board, vector<char> 
 	bigBoardIndex = smBoardIndex;
 	counter++;
 	do{
-		displayBigBoard(board, X, O);
+		//displayBigBoard(board, X, O);
+		displayBoard(board);
 		temp = ((counter % 2) == 0) ? P1 : P2;
 		cout << "It is " << temp << "'s turn. " << endl;
 		while (board[bigBoardIndex] == X || board[bigBoardIndex] == O){
@@ -274,6 +278,7 @@ void fillBoard(string P1, string P2, vector< vector<char> > board, vector<char> 
 		board[bigBoardIndex][smBoardIndex] = ((counter % 2) == 0) ? *"X" : *"O";
 		if (gameOverSmallBoard(board[bigBoardIndex])){
 			board[bigBoardIndex] = ((counter % 2) == 0) ? X : O;
+			displayBigBoard(board, X, O);
 		}
 		bigBoardIndex = smBoardIndex;
 		counter++;

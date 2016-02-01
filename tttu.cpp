@@ -459,6 +459,7 @@ void fillBoard(string P1, string P2, vector< vector<char> > board, vector<char> 
 			cout << "Small Board #" << bigBoardIndex + 1 << " has been won, please choose another small board." << endl;
 			cin >> bigBoardIndex;
 			bigBoardIndex--;
+			displayBoard(board, bigBoardIndex);
 		}
 		displaySmallBoard(board[bigBoardIndex], bigBoardIndex);
 		cout << "Please choose where in Small Board #" << bigBoardIndex + 1 << " to mark." <<endl;

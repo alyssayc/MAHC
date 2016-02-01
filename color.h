@@ -1,5 +1,16 @@
 //color
 #define RESET   "\033[0m"
+#define BOLD    "\033[1m"
+#define ITALIC  "\033[3m"
+#define BLINK   "\033[5m"
+#define UNDERLINE "\033[4m"
+#define UNDERLINEOFF "\033[24m"
+#define INVERSE "\033[7m"
+#define INVERSEOFF "\033[27m"
+#define STRIKETHROUGH "\033[9m"
+#define STRIKETHROUGHOFF "\033[29m"
+#define DEF "\033[39m"
+#define BDEF "\033[49m"
 #define BLACK   "\033[30m"      /* Black */
 #define RED     "\033[31m"      /* Red */
 #define GREEN   "\033[32m"      /* Green */

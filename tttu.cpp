@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "color.h"
 using namespace std;
 
 /* Something like this....
@@ -14,6 +15,25 @@ _____|_____|_____ | _____|_____|_____ | _____|_____|_____
      |     |      |      |     |      |      |     |     
      |     |      |      |     |      |      |     |     
 ---------------------------------------------------------
+     |     |      |      |     |      |      |     |     
+     |     |      |      |     |      |      |     |     
+_____|_____|_____ | _____|_____|_____ | _____|_____|_____
+     |     |      |      |     |      |      |     |     
+     |     |      |      |     |      |      |     |     
+_____|_____|_____ | _____|_____|_____ | _____|_____|_____
+     |     |      |      |     |      |      |     |     
+     |     |      |      |     |      |      |     |     
+     |     |      |      |     |      |      |     |     
+---------------------------------------------------------
+     |     |      |      |     |      |      |     |     
+     |     |      |      |     |      |      |     |     
+_____|_____|_____ | _____|_____|_____ | _____|_____|_____
+     |     |      |      |     |      |      |     |     
+     |     |      |      |     |      |      |     |     
+_____|_____|_____ | _____|_____|_____ | _____|_____|_____
+     |     |      |      |     |      |      |     |     
+     |     |      |      |     |      |      |     |     
+     |     |      |      |     |      |      |     |     
 
 
 */
@@ -182,7 +202,7 @@ void displaySmallBoard(vector<char> board, int index){ // Change this to look be
 	// Can implement color maybe....
 }
 
-void displayBoard(vector< vector<char> > board){
+void displayBoard(vector< vector<char> > board, int bigBoardIndex){
 	cout << "Displaying the board." << endl;
 	cout << "     |     |      |      |     |      |      |     |" << endl;
 	cout << "  " << board[0][0] << "  |  " << board[0][1] << "  |  " << board[0][2] << "   |   " << board[1][0] << "  |  " << board[1][1] << "  |  " << board[1][2] << "   |   " << board[2][0] << "  |  " << board[2][1] << "  |  " << board[2][2] << endl;
@@ -248,7 +268,7 @@ void fillBoard(string P1, string P2, vector< vector<char> > board, vector<char> 
 	cin >> bigBoardIndex;
 	bigBoardIndex--;
 	// Something about are you sure, you can go back, blah blah
-	displayBoard(board);
+	displayBoard(board, bigBoardIndex);
 	displaySmallBoard(board[bigBoardIndex], bigBoardIndex);
 	cout << endl << "Please choose where in Small Board #" << bigBoardIndex + 1 << " to mark." << endl;
 	cin >> smBoardIndex;
@@ -258,7 +278,7 @@ void fillBoard(string P1, string P2, vector< vector<char> > board, vector<char> 
 	counter++;
 	do{
 		//displayBigBoard(board, X, O);
-		displayBoard(board);
+		displayBoard(board, bigBoardIndex);
 		temp = ((counter % 2) == 0) ? P1 : P2;
 		cout << "It is " << temp << "'s turn. " << endl;
 		while (board[bigBoardIndex] == X || board[bigBoardIndex] == O){
